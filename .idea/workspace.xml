@@ -4,7 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="904309fc-c0cc-49a0-806b-4675d7783840" name="更改" comment="" />
+    <list default="true" id="904309fc-c0cc-49a0-806b-4675d7783840" name="更改" comment="前端页面及后端的登录注册功能，包括jwt权限认证">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Entity/gameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Entity/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Interceptor/JwtInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Interceptor/JwtInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Mapper/LoginMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Mapper/LoginMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Mapper/RegisterMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Mapper/RegisterMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/single-practice.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/single-practice.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Interceptor/JwtInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Interceptor/JwtInterceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/dto/LoginRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/dto/LoginRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/dto/RegisterResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/dto/RegisterResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/gamebody.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/gamebody.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/match.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/match.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/matching.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/matching.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/single-practice.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/single-practice.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,12 +31,27 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;DZ-code-hub&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/DZ-code-hub/zhanyi-Chess.git&quot;,
+    &quot;accountId&quot;: &quot;5f986131-9648-4eac-a19d-0142bd579b60&quot;
+  }
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -30,11 +63,17 @@
   <component name="MavenRunner">
     <option name="jreName" value="17" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="32DNz8pSLmMoMqkgYIftM5fnG7k" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -48,8 +87,9 @@
     &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;Spring Boot.ZhanyiChessApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/javaProject/springboot-Mybatis&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/javaProject/zhanyi-Chess&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -58,10 +98,14 @@
     &quot;project.structure.last.edited&quot;: &quot;项目&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.runner&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;
+    ],
     &quot;DatabaseDriversLRU&quot;: [
       &quot;mysql&quot;
     ]
@@ -107,10 +151,29 @@
       <workItem from="1756951601195" duration="132000" />
       <workItem from="1756951740095" duration="3747000" />
       <workItem from="1756955538240" duration="12597000" />
+      <workItem from="1757039252209" duration="13377000" />
+      <workItem from="1757060684072" duration="230000" />
+      <workItem from="1757062436815" duration="47000" />
+      <workItem from="1757062514377" duration="12000" />
     </task>
+    <task id="LOCAL-00001" summary="前端页面及后端的登录注册功能，包括jwt权限认证">
+      <option name="closed" value="true" />
+      <created>1757039540990</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1757039540990</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT_PROFILE" value="Project Default" />
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
+    <MESSAGE value="前端页面及后端的登录注册功能，包括jwt权限认证" />
+    <option name="LAST_COMMIT_MESSAGE" value="前端页面及后端的登录注册功能，包括jwt权限认证" />
   </component>
 </project>

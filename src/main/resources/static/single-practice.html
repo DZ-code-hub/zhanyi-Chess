@@ -167,6 +167,26 @@
             flex-direction: column;
         }
 
+        .content-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .content-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .content-subtitle {
+            color: #777;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
         /* 棋盘容器 */
         .chess-container {
             flex: 1;
@@ -219,7 +239,86 @@
             display: none; /* 隐藏CSS格线，使用图片中的格线 */
         }
 
+        /* 九宫格斜线 - 隐藏，使用图片中的斜线 */
+        .palace-lines {
+            display: none; /* 隐藏九宫斜线，使用图片中的斜线 */
+        }
 
+        /* 九宫九点 - 隐藏，使用图片中的点位 */
+        .palace-dots {
+            display: none; /* 隐藏九宫点位，使用图片中的点位 */
+        }
+
+        /* 楚河汉界 - 隐藏，使用图片中的文字 */
+        .river {
+            display: none; /* 隐藏楚河汉界，使用图片中的文字 */
+        }
+
+        /* 坐标数字 - 隐藏，使用图片中的坐标 */
+        .coordinates {
+            display: none; /* 隐藏坐标数字，使用图片中的坐标 */
+        }
+
+        /* 棋子样式 */
+        .piece {
+            width: 50px; /* 调整棋子大小，确保与棋盘格子匹配 */
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: absolute;
+            z-index: 10;
+            user-select: none;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* 选中状态 */
+        .piece.selected {
+            box-shadow: 0 0 0 3px #ffcc00;
+            transform: scale(1.1);
+            z-index: 20;
+        }
+
+        /* 红方棋子 */
+        .piece.red {
+            background-color: #ffdddd;
+            color: #b30000;
+            border: 2px solid #b30000;
+            box-shadow: 0 3px 6px rgba(179, 0, 0, 0.2);
+        }
+
+        /* 黑方棋子 */
+        .piece.black {
+            background-color: #fff;
+            color: #000;
+            border: 2px solid #000;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .piece:hover:not(.selected) {
+            transform: scale(1.1);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            z-index: 15;
+        }
+
+        /* 合法移动提示 */
+        .valid-move {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: rgba(0, 200, 0, 0.3);
+            z-index: 15;
+            pointer-events: auto;
+            cursor: pointer;
+        }
 
         /* 操作按钮 */
         .controls {
@@ -383,7 +482,10 @@
 
     <!-- 右侧棋盘区 -->
     <div class="content">
-
+        <!--        <div class="content-header">-->
+        <!--            <h1 class="content-title">单人摆谱模式</h1>-->
+        <!--            <p class="content-subtitle">自由摆放棋子，研究经典棋局，提升象棋技巧</p>-->
+        <!--        </div>-->
 
         <div class="chess-container">
             <div class="side-indicator" id="sideIndicator">您当前执：-</div>
@@ -446,7 +548,7 @@
         }
         return true;
     }
-    
+
     // 页面加载时检查登录状态，并从后端获取阵营更新左侧提示（最简单可靠）
     document.addEventListener('DOMContentLoaded', async function() {
         if (!checkAuth()) return;
@@ -463,7 +565,7 @@
             }
         } catch (_) {}
     });
-    
+
     // 全局变量
     let selectedPiece = null;
     let gameState = null;
@@ -570,7 +672,7 @@
             const token = localStorage.getItem('authToken');
             const response = await fetch(
                 `${apiBaseUrl}/move?sessionId=${sessionId}&fromX=${fromX}&fromY=${fromY}&toX=${toX}&toY=${toY}`,
-                { 
+                {
                     method: 'POST',
                     headers: {
                         'Authorization': 'Bearer ' + token,
@@ -710,19 +812,19 @@
         pieceEl.dataset.x = x;
         pieceEl.dataset.y = y;
         pieceEl.dataset.type = piece.type;
-        
+
         // 设置棋子图片
         const pieceImage = getPieceImage(piece);
         pieceEl.style.backgroundImage = `url('ChessPic/${pieceImage}')`;
-        
+
         // 移除文字显示，使用图片
         pieceEl.textContent = '';
-        
+
         // 棋子绘制在网格交点
         const gridSize = 66; // 格子大小（从65增加到65.5）
         const boardPadding = 30; // 棋盘内边距
         const pieceOffset = 25; // 棋子偏移量（棋子大小的一半）
-        
+
         pieceEl.style.left = `${boardPadding + x * gridSize - pieceOffset}px`;
         pieceEl.style.top = `${boardPadding + y * gridSize - pieceOffset}px`;
         pieceEl.addEventListener('click', handlePieceClick);
@@ -818,7 +920,7 @@
                 const gridSize = 66; // 格子大小（从65增加到65.5）
                 const boardPadding = 30; // 棋盘内边距
                 const indicatorOffset = 8; // 提示点偏移量（提示点大小的一半）
-                
+
                 moveIndicator.style.left = `${boardPadding + mx * gridSize - indicatorOffset}px`;
                 moveIndicator.style.top = `${boardPadding + my * gridSize - indicatorOffset}px`;
                 moveIndicator.dataset.x = mx;
@@ -859,6 +961,7 @@
         turnIndicator.textContent = gameState.currentPlayer === 'RED' ? '红方' : '黑方';
         turnIndicator.style.color = gameState.currentPlayer === 'RED' ? '#b30000' : '#000';
     }
+
 
 
     // 获取棋子名称
@@ -933,10 +1036,10 @@
     function showGridLines() {
         // 清除现有的参考线
         document.querySelectorAll('.grid-line').forEach(line => line.remove());
-        
+
         const gridSize = 66; // 格子大小（从65增加到65.5）
         const boardPadding = 30;
-        
+
         // 绘制竖线
         for (let x = 0; x <= 9; x++) {
             const line = document.createElement('div');
@@ -951,7 +1054,7 @@
             line.style.zIndex = '5';
             chessboard.appendChild(line);
         }
-        
+
         // 绘制横线
         for (let y = 0; y <= 10; y++) {
             const line = document.createElement('div');
@@ -970,7 +1073,7 @@
 
     // 启动
     bootGame();
-    
+
     // 如果需要调试，可以取消注释下面这行来显示网格线
     // showGridLines();
 </script>

@@ -8,12 +8,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.io.PrintWriter;
-
+//jwt握手拦截器
 @Component
 public class JwtInterceptor implements HandlerInterceptor {
     @Autowired
     JWTUtil jwtUtil;
 
+    //握手前进行拦截，将前端静态资源排除在外
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String uri = request.getRequestURI();
@@ -28,7 +29,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         //从请求头获取token
         String token = request.getHeader("Authorization");
-
+        //token存在且有效
         if(token != null && token.startsWith("Bearer")){
             token = token.substring(7);
         }
