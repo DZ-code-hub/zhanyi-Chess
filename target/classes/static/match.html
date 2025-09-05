@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>在线匹配 - 战弈象棋</title>
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+  <style>
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .game-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    iframe { 
+      width: 100%; 
+      height: 100%; 
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <iframe id="board" src="single-practice.html"></iframe>
+  </div>
+
+  <script>
+    // 立即检查登录状态（在页面加载前）
+    (function() {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            alert('请先登录');
+            window.location.href = '/index.html';
+            return;
+        }
+    })();
+
+    // 检查登录状态
+    function checkAuth() {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            alert('请先登录');
+            window.location.href = '/index.html';
+            return false;
+        }
+        return true;
+    }
+    
+    // 页面加载时检查登录状态
+    if (!checkAuth()) {
+        // 如果未登录，停止执行后续代码
+        throw new Error('未登录');
+    }
+    
+    const qs = new URLSearchParams(location.search);
+    const roomId = qs.get('roomId');
+    const cid = qs.get('cid') || ('c-' + Math.random().toString(36).slice(2));
+    const yourColor = (qs.get('color') || '').toUpperCase();
+    const token = localStorage.getItem('authToken');
+    
+    document.getElementById('board').src = 'single-practice.html?roomId=' + encodeURIComponent(roomId) + '&color=' + encodeURIComponent(yourColor);
+
+    const sock = new SockJS('/ws?clientId=' + encodeURIComponent(cid));
+    const client = Stomp.over(sock);
+    client.debug = ()=>{};
+
+    // 提前监听子页请求，避免子页过早发送导致丢失
+    window.addEventListener('message', (e) => {
+        if (!e || !e.data) return;
+        const data = e.data;
+        if (data.type === 'wsMove' && roomId) {
+            if (client && client.connected) {
+                client.send(`/app/room/${roomId}/move`, {}, JSON.stringify({
+                    fromX: data.fromX,
+                    fromY: data.fromY,
+                    toX: data.toX,
+                    toY: data.toY
+                }));
+            }
+        } else if (data.type === 'wsUndo' && roomId) {
+            if (client && client.connected) {
+                client.send(`/app/room/${roomId}/undo`, {}, JSON.stringify({}));
+            }
+        } else if (data.type === 'requestYourColor') {
+            const ifr = document.getElementById('board');
+            if (ifr && ifr.contentWindow) {
+                ifr.contentWindow.postMessage({ type: 'yourColor', color: yourColor }, '*');
+            }
+        }
+    });
+    
+    // 连接时添加token
+    client.connect({
+        'Authorization': 'Bearer ' + token
+    }, () => {
+        client.subscribe('/topic/room/' + roomId, (frame) => {
+            const evt = JSON.parse(frame.body);
+            if (evt.type === 'moveMade' || evt.type === 'undoApplied') {
+                console.log('[广播] 房间状态更新:', evt.gameState);
+                // 主页面转发给 iframe，让其拉最新状态
+                const ifr = document.getElementById('board');
+                if (ifr && ifr.contentWindow) {
+                    ifr.contentWindow.postMessage({ type: 'refreshGameState' }, '*');
+                }
+            } else if (evt.type === 'undoRejected') {
+                const ifr = document.getElementById('board');
+                if (ifr && ifr.contentWindow) {
+                    ifr.contentWindow.postMessage({ type: 'toast', message: evt.message || '悔棋失败' }, '*');
+                }
+            } else if (evt.type === 'moveRejected') {
+                const ifr = document.getElementById('board');
+                // 取消“未到你的回合”的提示，其它原因仍提示
+                if (ifr && ifr.contentWindow && evt.message !== '未到你的回合') {
+                    ifr.contentWindow.postMessage({ type: 'toast', message: evt.message || '走子被拒绝' }, '*');
+                }
+            }
+        });
+        // 首次进入也主动通知子页拉取一次
+        const ifr = document.getElementById('board');
+        if (ifr && ifr.contentWindow) {
+            ifr.onload = () => {
+                ifr.contentWindow.postMessage({ type: 'refreshGameState' }, '*');
+                // 主动下发阵营，确保子页能及时显示
+                ifr.contentWindow.postMessage({ type: 'yourColor', color: yourColor }, '*');
+            };
+        }
+    });
+
+
+  </script>
+</body>
+</html>
+
+

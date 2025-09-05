@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>战弈象棋 - 单人摆谱</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* 基础重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 顶部导航栏 */
+        .top-nav {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon i {
+            font-size: 24px;
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .user-name {
+            font-weight: 600;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f5f7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn:hover {
+            background: #eef0ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 主内容区 */
+        .main-container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        /* 左侧导航栏 */
+        .sidebar {
+            width: 260px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            height: fit-content;
+        }
+
+        .nav-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+
+        .nav-item {
+            padding: 12px 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-item i {
+            width: 24px;
+            text-align: center;
+            color: #6e8efb;
+        }
+
+        .nav-item:hover {
+            background: #f5f7ff;
+        }
+
+        /* 右侧内容区 */
+        .content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 棋盘容器 */
+        .chess-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* 核心：棋盘样式 */
+        .chessboard {
+            width: 600px; /* 外框宽度：左右各30像素边距 + 9列×60 */
+            height: 660px; /* 外框高度：上下各30像素边距 + 10行×60 */
+            background-image: url('ChessPic/qipan.jpg'); /* 使用棋盘图片 */
+            background-size: cover;
+            background-position: center;
+            border: 3px solid #8B4513; /* 深棕色边框 */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            margin: 0 auto;
+        }
+
+        /* 棋盘左侧阵营提示 */
+        .side-indicator {
+            position: absolute;
+            left: calc(50% - 600px/2 - 140px); /* 棋盘左侧再向左偏移一定距离 */
+            top: 50%;
+            transform: translateY(-50%);
+            width: 120px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            color: #333;
+            text-align: center;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        /* 棋盘网格配置 */
+        :root {
+            --grid-size: 66px; /* 每个格子的大小（从65px增加到65.5px） */
+            --board-padding: 30px; /* 棋盘内边距 */
+            --piece-size: 50px; /* 棋子大小 */
+        }
+
+        /* 格线 - 隐藏CSS格线，使用图片中的格线 */
+        .chessboard::before {
+            display: none; /* 隐藏CSS格线，使用图片中的格线 */
+        }
+
+
+
+        /* 操作按钮 */
+        .controls {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .control-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .undo-btn {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            box-shadow: 0 4px 10px rgba(110, 142, 251, 0.4);
+        }
+
+        .undo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(110, 142, 251, 0.6);
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.6);
+        }
+
+        .hint-btn {
+            background: linear-gradient(135deg, #FFC107, #FF9800);
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 193, 7, 0.4);
+        }
+
+        .hint-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 193, 7, 0.6);
+        }
+
+        /* 状态提示 */
+        .status-info {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: 500;
+            color: #444;
+            height: 24px;
+        }
+
+        /* 底部信息 */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            margin-top: auto;
+        }
+
+        /* 加载指示器 */
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #8B4513;
+            z-index: 100;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .chessboard {
+                width: 450px;
+                height: 500px;
+                grid-template-columns: repeat(9, 50px);
+                grid-template-rows: repeat(10, 50px);
+            }
+
+            .piece {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .controls {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- 顶部导航栏 -->
+<nav class="top-nav">
+    <div class="logo">
+        <div class="logo-icon">
+            <i class="fas fa-chess-rook"></i>
+        </div>
+        <div class="logo-text">战弈象棋</div>
+    </div>
+    <div class="user-info">
+        <div class="user-avatar">张</div>
+        <div class="user-name">张棋手</div>
+    </div>
+    <div class="nav-controls">
+        <div class="nav-btn">
+            <i class="fas fa-bell"></i>
+        </div>
+        <div class="nav-btn">
+            <i class="fas fa-cog"></i>
+        </div>
+        <div class="nav-btn">
+            <i class="fas fa-sign-out-alt"></i>
+        </div>
+    </div>
+</nav>
+
+<!-- 主内容区 -->
+<div class="main-container">
+    <!-- 左侧返回栏 -->
+    <div class="sidebar">
+        <div class="nav-title">游戏功能</div>
+        <div class="nav-item" id="returnBtn">
+            <i class="fas fa-arrow-left"></i>
+            <span>返回游戏大厅</span>
+        </div>
+        <div class="nav-title" style="margin-top: 30px;">棋谱操作</div>
+        <div class="nav-item" id="saveBoardBtn">
+            <i class="fas fa-save"></i>
+            <span>保存当前棋局</span>
+        </div>
+        <div class="nav-item" id="loadBoardBtn">
+            <i class="fas fa-folder-open"></i>
+            <span>加载已有棋局</span>
+        </div>
+    </div>
+
+    <!-- 右侧棋盘区 -->
+    <div class="content">
+
+
+        <div class="chess-container">
+            <div class="side-indicator" id="sideIndicator">您当前执：-</div>
+            <div class="status-info" id="statusInfo">当前回合: <span id="turnIndicator">红方</span></div>
+
+            <!-- 象棋棋盘 -->
+            <div class="chessboard" id="chessboard">
+                <!-- 加载指示器 -->
+                <div class="loading" id="loadingIndicator">
+                    <i class="fas fa-spinner fa-spin"></i> 初始化棋盘...
+                </div>
+
+                <!-- 棋盘图片已包含所有格线、九宫斜线、点位、楚河汉界和坐标 -->
+
+                <!-- 棋子动态生成 -->
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="controls">
+                <button class="control-btn undo-btn" id="undoBtn">
+                    <i class="fas fa-undo"></i>
+                    <span>悔棋 (Ctrl+Z)</span>
+                </button>
+                <button class="control-btn restart-btn" id="restartBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>重新开始</span>
+                </button>
+                <button class="control-btn hint-btn" id="hintBtn">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>提示走法</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 底部信息 -->
+<div class="footer">
+    © 2023 战弈象棋 - 弘扬国粹，传承棋艺 | 当前版本 v1.0.2
+</div>
+
+<script>
+    // 立即检查登录状态（在页面加载前）
+    (function() {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            alert('请先登录');
+            window.location.href = '/index.html';
+
+        }
+    })();
+
+    // 检查登录状态
+    function checkAuth() {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            alert('请先登录');
+            window.location.href = '/index.html';
+            return false;
+        }
+        return true;
+    }
+    
+    // 页面加载时检查登录状态，并从后端获取阵营更新左侧提示（最简单可靠）
+    document.addEventListener('DOMContentLoaded', async function() {
+        if (!checkAuth()) return;
+        const isOnline = !!(new URLSearchParams(window.location.search)).get('roomId');
+        if (!isOnline) return;
+        try {
+            const token = localStorage.getItem('authToken');
+            const resp = await fetch('/api/match/my-color', { headers: { 'Authorization': 'Bearer ' + token } });
+            const data = await resp.json();
+            if (data && data.success && data.yourColor) {
+                yourColor = (data.yourColor || '').toUpperCase();
+                const sideIndicator = document.getElementById('sideIndicator');
+                if (sideIndicator) sideIndicator.textContent = '您当前执：' + (yourColor === 'RED' ? '红方' : '黑方');
+            }
+        } catch (_) {}
+    });
+    
+    // 全局变量
+    let selectedPiece = null;
+    let gameState = null;
+    const __params = new URLSearchParams(window.location.search);
+    const sessionId = __params.get('roomId') || 'single_practice_session';
+    let yourColor = (__params.get('color') || '').toUpperCase() || null; // 'RED' | 'BLACK'
+    const apiBaseUrl = '/api/chess';
+
+    // DOM元素
+    const chessboard = document.getElementById('chessboard');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const statusInfo = document.getElementById('statusInfo');
+    const turnIndicator = document.getElementById('turnIndicator');
+    const sideIndicatorEl = document.getElementById('sideIndicator');
+    if (yourColor && sideIndicatorEl) {
+        sideIndicatorEl.textContent = '您当前执：' + (yourColor === 'RED' ? '红方' : '黑方');
+    }
+
+    // 初始化游戏
+    async function initializeGame() {
+        showLoading(true);
+
+        try {
+            // 调用后端初始化接口
+            const token = localStorage.getItem('authToken');
+            const response = await fetch(`${apiBaseUrl}/initialize?sessionId=${sessionId}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                gameState = data.gameState;
+                renderBoard();
+                updateTurnIndicator();
+            } else {
+                console.error('初始化失败:', data.message);
+                statusInfo.textContent = '初始化失败，请刷新页面重试';
+            }
+        } catch (error) {
+            console.error('初始化错误:', error);
+            statusInfo.textContent = '网络错误，请检查连接';
+        } finally {
+            showLoading(false);
+        }
+    }
+
+    // 启动流程：先尝试获取已有状态，若不存在再初始化
+    async function bootGame() {
+        try {
+            const token = localStorage.getItem('authToken');
+            const res = await fetch(`${apiBaseUrl}/state?sessionId=${sessionId}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+            const data = await res.json();
+            if (data && data.success && data.gameState) {
+                gameState = data.gameState;
+                renderBoard();
+                updateTurnIndicator();
+                return;
+            }
+        } catch (e) {}
+        await initializeGame();
+    }
+
+    // 获取游戏状态
+    async function fetchGameState() {
+        try {
+            const token = localStorage.getItem('authToken');
+            const response = await fetch(`${apiBaseUrl}/state?sessionId=${sessionId}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                gameState = data.gameState;
+                renderBoard();
+                updateTurnIndicator();
+            }
+        } catch (error) {
+            console.error('获取状态失败:', error);
+        }
+    }
+
+    // 移动棋子
+    async function makeMove(fromX, fromY, toX, toY) {
+        showLoading(true);
+
+        try {
+            // 在线模式下通过父窗口 WebSocket 发送
+            const isOnline = !!(new URLSearchParams(window.location.search)).get('roomId');
+            if (isOnline && window.parent !== window) {
+                window.parent.postMessage({ type: 'wsMove', fromX, fromY, toX, toY }, '*');
+                return; // 等待房间广播后父页会通知我刷新
+            }
+            const token = localStorage.getItem('authToken');
+            const response = await fetch(
+                `${apiBaseUrl}/move?sessionId=${sessionId}&fromX=${fromX}&fromY=${fromY}&toX=${toX}&toY=${toY}`,
+                { 
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+            const data = await response.json();
+
+            if (data.success) {
+                gameState = data.gameState;
+                renderBoard();
+                updateTurnIndicator();
+
+                // 显示移动结果
+                if (data.move.capturedPiece) {
+                    statusInfo.textContent = `${getPieceName(data.move.piece)}移动到(${toX},${toY})，吃掉了${getPieceName(data.move.capturedPiece)}`;
+                } else {
+                    statusInfo.textContent = `${getPieceName(data.move.piece)}移动到(${toX},${toY})`;
+                }
+
+                // 胜负判定：从后端 boardState 附带的 result 字段提取
+                if (gameState && gameState.boardState) {
+                    try {
+                        const parsed = JSON.parse(gameState.boardState);
+                        if (parsed.result === 'RED_WIN' || parsed.result === 'BLACK_WIN') {
+                            const msg = parsed.result === 'RED_WIN' ? '红方取胜' : '黑方取胜';
+                            alert(msg);
+                            await restartGame();
+                        }
+                    } catch (e) {}
+                }
+            } else {
+                statusInfo.textContent = data.message || '移动失败';
+            }
+        } catch (error) {
+            console.error('移动错误:', error);
+            statusInfo.textContent = '网络错误，请重试';
+        } finally {
+            showLoading(false);
+        }
+    }
+
+    // 悔棋
+    async function undoMove() {
+        showLoading(true);
+
+        try {
+            // 在线模式下通过父窗口 WebSocket 发送
+            const isOnline = !!(new URLSearchParams(window.location.search)).get('roomId');
+            if (isOnline && window.parent !== window) {
+                window.parent.postMessage({ type: 'wsUndo' }, '*');
+                return; // 等待房间广播后父页会通知我刷新
+            }
+            const token = localStorage.getItem('authToken');
+            const response = await fetch(`${apiBaseUrl}/undo?sessionId=${sessionId}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                gameState = data.gameState;
+                renderBoard();
+                updateTurnIndicator();
+                statusInfo.textContent = '悔棋成功';
+            } else {
+                statusInfo.textContent = data.message || '无法悔棋';
+            }
+        } catch (error) {
+            console.error('悔棋错误:', error);
+            statusInfo.textContent = '悔棋失败';
+        } finally {
+            showLoading(false);
+        }
+    }
+
+    // 重新开始
+    async function restartGame() {
+        showLoading(true);
+
+        try {
+            const token = localStorage.getItem('authToken');
+            const response = await fetch(`${apiBaseUrl}/restart?sessionId=${sessionId}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                gameState = data.gameState;
+                renderBoard();
+                updateTurnIndicator();
+                statusInfo.textContent = '游戏已重置';
+            } else {
+                statusInfo.textContent = data.message || '重置失败';
+            }
+        } catch (error) {
+            console.error('重置错误:', error);
+            statusInfo.textContent = '重置失败';
+        } finally {
+            showLoading(false);
+        }
+    }
+
+    // 修改后的渲染棋盘函数
+    function renderBoard() {
+        document.querySelectorAll('.piece').forEach(p => p.remove());
+        document.querySelectorAll('.valid-move').forEach(v => v.remove());
+
+        if (!gameState || !gameState.board) return;
+
+        // 修正行列顺序：后端是10行(y)9列(x)
+        for (let y = 0; y < 10; y++) {
+            for (let x = 0; x < 9; x++) {
+                const piece = gameState.board[y][x];  // 注意这里是[y][x]
+                if (piece) {
+                    createPieceElement(piece, x, y);
+                }
+            }
+        }
+    }
+
+    // 修改后的创建棋子函数
+    function createPieceElement(piece, x, y) {
+        const pieceEl = document.createElement('div');
+        pieceEl.className = `piece ${piece.color.toLowerCase()}`;
+        pieceEl.dataset.x = x;
+        pieceEl.dataset.y = y;
+        pieceEl.dataset.type = piece.type;
+        
+        // 设置棋子图片
+        const pieceImage = getPieceImage(piece);
+        pieceEl.style.backgroundImage = `url('ChessPic/${pieceImage}')`;
+        
+        // 移除文字显示，使用图片
+        pieceEl.textContent = '';
+        
+        // 棋子绘制在网格交点
+        const gridSize = 66; // 格子大小（从65增加到65.5）
+        const boardPadding = 30; // 棋盘内边距
+        const pieceOffset = 25; // 棋子偏移量（棋子大小的一半）
+        
+        pieceEl.style.left = `${boardPadding + x * gridSize - pieceOffset}px`;
+        pieceEl.style.top = `${boardPadding + y * gridSize - pieceOffset}px`;
+        pieceEl.addEventListener('click', handlePieceClick);
+        chessboard.appendChild(pieceEl);
+    }
+
+    // 获取棋子图片文件名
+    function getPieceImage(piece) {
+        const pieceImages = {
+            CHE: piece.color === 'RED' ? 'che0.png' : 'che1.png',
+            MA: piece.color === 'RED' ? 'ma0.png' : 'ma1.png',
+            XIANG: piece.color === 'RED' ? 'xiang0.png' : 'xiang1.png',
+            SHI: piece.color === 'RED' ? 'shi0.png' : 'shi1.png',
+            BOSS: piece.color === 'RED' ? 'boss0.png' : 'boss1.png',
+            PAO: piece.color === 'RED' ? 'pao0.png' : 'pao1.png',
+            BING: piece.color === 'RED' ? 'bing0.png' : 'bing1.png'
+        };
+        return pieceImages[piece.type] || 'bing0.png';
+    }
+
+    // 棋子点击处理
+    function handlePieceClick(event) {
+        const pieceEl = event.currentTarget;
+        const x = parseInt(pieceEl.dataset.x);
+        const y = parseInt(pieceEl.dataset.y);
+
+        // 如果当前没有选中棋子，并且点击的是当前回合的棋子
+        if (!selectedPiece && pieceEl.classList.contains(gameState.currentPlayer.toLowerCase())) {
+            // 在线模式：仅允许本人颜色操作
+            const isOnline = !!(new URLSearchParams(window.location.search)).get('roomId');
+            if (isOnline && yourColor && !pieceEl.classList.contains(yourColor.toLowerCase())) {
+                statusInfo.textContent = '只能操作己方棋子';
+                return;
+            }
+            selectedPiece = pieceEl;
+            pieceEl.classList.add('selected');
+            showValidMoves(x, y);
+            return;
+        }
+
+        // 如果当前有选中棋子
+        if (selectedPiece) {
+            const selectedX = parseInt(selectedPiece.dataset.x);
+            const selectedY = parseInt(selectedPiece.dataset.y);
+
+            // 如果点击的是同一个棋子，取消选中
+            if (x === selectedX && y === selectedY) {
+                selectedPiece.classList.remove('selected');
+                selectedPiece = null;
+                clearValidMoves();
+                return;
+            }
+
+            // 尝试移动棋子
+            const isOnline = !!(new URLSearchParams(window.location.search)).get('roomId');
+            if (isOnline && yourColor && gameState && gameState.currentPlayer && yourColor !== gameState.currentPlayer) {
+                // 取消弹窗提示，仅静默阻止
+                selectedPiece.classList.remove('selected');
+                selectedPiece = null;
+                clearValidMoves();
+                return;
+            }
+            makeMove(selectedX, selectedY, x, y);
+
+            // 清除选择和移动提示
+            selectedPiece.classList.remove('selected');
+            selectedPiece = null;
+            clearValidMoves();
+        }
+    }
+
+    // 显示合法移动位置（从后端获取）
+    async function showValidMoves(x, y) {
+        try {
+            const token = localStorage.getItem('authToken');
+            const res = await fetch(`${apiBaseUrl}/valid-moves?sessionId=${sessionId}&fromX=${x}&fromY=${y}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+            const data = await res.json();
+            if (!data.success) return;
+            if (data.result === 'RED_WIN' || data.result === 'BLACK_WIN') {
+                const msg = data.result === 'RED_WIN' ? '红方取胜' : '黑方取胜';
+                alert(msg);
+                await restartGame();
+                return;
+            }
+            data.moves.forEach(([mx, my]) => {
+                const moveIndicator = document.createElement('div');
+                moveIndicator.className = 'valid-move';
+                // 合法落点绘制在交点
+                const gridSize = 66; // 格子大小（从65增加到65.5）
+                const boardPadding = 30; // 棋盘内边距
+                const indicatorOffset = 8; // 提示点偏移量（提示点大小的一半）
+                
+                moveIndicator.style.left = `${boardPadding + mx * gridSize - indicatorOffset}px`;
+                moveIndicator.style.top = `${boardPadding + my * gridSize - indicatorOffset}px`;
+                moveIndicator.dataset.x = mx;
+                moveIndicator.dataset.y = my;
+                moveIndicator.addEventListener('click', handleValidMoveClick);
+                chessboard.appendChild(moveIndicator);
+            });
+        } catch (e) {
+            console.error('获取合法走法失败', e);
+        }
+    }
+
+    // 合法移动位置点击处理
+    function handleValidMoveClick(event) {
+        if (!selectedPiece) return;
+
+        const x = parseInt(event.currentTarget.dataset.x);
+        const y = parseInt(event.currentTarget.dataset.y);
+        const fromX = parseInt(selectedPiece.dataset.x);
+        const fromY = parseInt(selectedPiece.dataset.y);
+
+        makeMove(fromX, fromY, x, y);
+
+        selectedPiece.classList.remove('selected');
+        selectedPiece = null;
+        clearValidMoves();
+    }
+
+    // 清除移动提示
+    function clearValidMoves() {
+        document.querySelectorAll('.valid-move').forEach(v => v.remove());
+    }
+
+    // 更新回合指示器
+    function updateTurnIndicator() {
+        if (!gameState) return;
+
+        turnIndicator.textContent = gameState.currentPlayer === 'RED' ? '红方' : '黑方';
+        turnIndicator.style.color = gameState.currentPlayer === 'RED' ? '#b30000' : '#000';
+    }
+
+
+    // 获取棋子名称
+    // 修改后的棋子名称映射
+    function getPieceName(piece) {
+        const pieceNames = {
+            CHE: '车',
+            MA: '马',
+            XIANG: piece.color === 'RED' ? '相' : '象',
+            SHI: piece.color === 'RED' ? '仕' : '士',
+            BOSS: piece.color === 'RED' ? '帅' : '将',
+            PAO: '炮',
+            BING: piece.color === 'RED' ? '兵' : '卒'
+        };
+        return (piece.color === 'RED' ? '红' : '黑') + pieceNames[piece.type];
+    }
+
+    // 显示/隐藏加载指示器
+    function showLoading(show) {
+        loadingIndicator.style.display = show ? 'block' : 'none';
+    }
+
+    // 事件监听
+    document.getElementById('returnBtn').addEventListener('click', () => {
+        window.location.href = 'gamebody.html';
+    });
+
+    document.getElementById('undoBtn').addEventListener('click', undoMove);
+    document.getElementById('restartBtn').addEventListener('click', restartGame);
+
+    document.getElementById('hintBtn').addEventListener('click', () => {
+        statusInfo.textContent = '提示功能将在后续版本中开放';
+    });
+
+    document.getElementById('saveBoardBtn').addEventListener('click', () => {
+        statusInfo.textContent = '保存功能将在后续版本中开放';
+    });
+
+    document.getElementById('loadBoardBtn').addEventListener('click', () => {
+        statusInfo.textContent = '加载功能将在后续版本中开放';
+    });
+
+    // 键盘快捷键
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.key === 'z') {
+            undoMove();
+        }
+    });
+
+    // 父页面可通过 postMessage 触发刷新
+    window.addEventListener('message', (e) => {
+        if (!e || !e.data) return;
+        if (e.data.type === 'refreshGameState') {
+            fetchGameState();
+        } else if (e.data.type === 'toast') {
+            // 过滤“未到你的回合”的提示，静默处理
+            if (e.data.message !== '未到你的回合') {
+                alert(e.data.message || '提示');
+            }
+        } else if (e.data.type === 'yourColor') {
+            yourColor = (e.data.color || '').toUpperCase();
+            if (yourColor) {
+                const sideIndicator = document.getElementById('sideIndicator');
+                if (sideIndicator) sideIndicator.textContent = '您当前执：' + (yourColor === 'RED' ? '红方' : '黑方');
+            }
+        }
+    });
+
+    // 兼容保留：仍支持父页面主动下发 yourColor（不依赖此路径）
+
+    // 调试功能：显示网格参考线（可选）
+    function showGridLines() {
+        // 清除现有的参考线
+        document.querySelectorAll('.grid-line').forEach(line => line.remove());
+        
+        const gridSize = 66; // 格子大小（从65增加到65.5）
+        const boardPadding = 30;
+        
+        // 绘制竖线
+        for (let x = 0; x <= 9; x++) {
+            const line = document.createElement('div');
+            line.className = 'grid-line';
+            line.style.position = 'absolute';
+            line.style.left = `${boardPadding + x * gridSize}px`;
+            line.style.top = `${boardPadding}px`;
+            line.style.width = '1px';
+            line.style.height = `${10 * gridSize}px`;
+            line.style.backgroundColor = 'rgba(255, 0, 0, 0.3)';
+            line.style.pointerEvents = 'none';
+            line.style.zIndex = '5';
+            chessboard.appendChild(line);
+        }
+        
+        // 绘制横线
+        for (let y = 0; y <= 10; y++) {
+            const line = document.createElement('div');
+            line.className = 'grid-line';
+            line.style.position = 'absolute';
+            line.style.left = `${boardPadding}px`;
+            line.style.top = `${boardPadding + y * gridSize}px`;
+            line.style.width = `${9 * gridSize}px`;
+            line.style.height = '1px';
+            line.style.backgroundColor = 'rgba(0, 0, 255, 0.3)';
+            line.style.pointerEvents = 'none';
+            line.style.zIndex = '5';
+            chessboard.appendChild(line);
+        }
+    }
+
+    // 启动
+    bootGame();
+    
+    // 如果需要调试，可以取消注释下面这行来显示网格线
+    // showGridLines();
+</script>
+</body>
+</html>
