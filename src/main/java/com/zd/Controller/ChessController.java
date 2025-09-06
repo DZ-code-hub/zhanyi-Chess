@@ -1,8 +1,11 @@
 package com.zd.Controller;
 
+import com.zd.Entity.Board;
 import com.zd.Entity.GameState;
 import com.zd.Entity.Move;
 import com.zd.Entity.Piece;
+import com.zd.Enum.Color;
+import com.zd.Mapper.MoveMapper;
 import com.zd.Rule.RuleEngine;
 import com.zd.Service.ChessService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +28,8 @@ public class ChessController {
     ChessService chessService;
     @Autowired
     RuleEngine ruleEngine;
+    @Autowired
+    MoveMapper moveMapper;
 
     //初始化游戏
     @PostMapping("/initialize")
@@ -113,14 +118,16 @@ public class ChessController {
             @RequestParam int fromY,
             @RequestParam int toX,
             @RequestParam int toY) {
+
+
         Move move = chessService.makeMove(sessionId, fromX, fromY, toX, toY);
+        GameState gameState = chessService.getGameState(sessionId);
         log.info("move:{}", move);
 
         Map<String, Object> response = new HashMap<>();
         if (move != null) {
             response.put("success", true);
             response.put("move", move);
-            GameState gameState = chessService.getGameState(sessionId);
             response.put("gameState", gameState);
             log.info("gameState为:{}", gameState);
 
@@ -129,10 +136,25 @@ public class ChessController {
             if (result != null) {
                 response.put("result", result);
             }
+            // 从Move对象中获取将军状态（在交换回合之前已经检查过）
+            boolean isCheck = move.isCheck();
+            
+            if (isCheck) {
+                // 由于已经交换了回合，当前玩家是被将军的一方
+                Color currentPlayer = gameState.getCurrentPlayer();
+                response.put("isCheck", true);
+                response.put("checkMessage", currentPlayer == Color.RED ? "红方被将军！" : "黑方被将军！");
+            } else {
+                response.put("isCheck", false);
+            }
+
+
         } else {
             response.put("success", false);
             response.put("message", "Invalid move");
+            response.put("isCheck", false);
         }
+
         return ResponseEntity.ok(response);
     }
 
@@ -153,4 +175,5 @@ public class ChessController {
         }
         return ResponseEntity.ok(response);
     }
+
 }

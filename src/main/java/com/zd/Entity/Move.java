@@ -35,6 +35,9 @@ public class Move {
     private PieceType capturedPieceType;
 
     private Color capturedPieceColor;
+    
+    // 新增：是否将军
+    private boolean isCheck;
 
 
     public Move(int fromX, int fromY, int toX, int toY, Piece movedPiece, Piece capturedPiece) {

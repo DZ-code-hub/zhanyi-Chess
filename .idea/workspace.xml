@@ -4,32 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="904309fc-c0cc-49a0-806b-4675d7783840" name="更改" comment="">
+    <list default="true" id="904309fc-c0cc-49a0-806b-4675d7783840" name="更改" comment="增加判断弈子有效移动位置功能、棋子移动功能和悔棋功能">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Controller/ChessController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Controller/ChessController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Entity/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Entity/GameState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Move.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Mapper/GameMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Mapper/GameMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Mapper/MoveMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Mapper/MoveMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfBing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfBing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfBoss.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfBoss.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfChe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfChe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfMa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfMa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfPao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfPao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfShi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfShi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfXiang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfXiang.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Service/ChessService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Service/ChessService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Service/ChessServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Service/ChessServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/single-practice.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/single-practice.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Controller/ChessController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Controller/ChessController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Entity/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Entity/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Entity/GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Entity/GameState.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Entity/Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Entity/Move.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Mapper/GameMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Mapper/GameMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Mapper/MoveMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Mapper/MoveMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Service/ChessService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Service/ChessService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Service/ChessServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Service/ChessServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/static/single-practice.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/single-practice.html" afterDir="false" />
     </list>
@@ -173,6 +156,7 @@
       <workItem from="1757126351835" duration="11847000" />
       <workItem from="1757151259986" duration="983000" />
       <workItem from="1757152591741" duration="4649000" />
+      <workItem from="1757158947401" duration="10438000" />
     </task>
     <task id="LOCAL-00001" summary="前端页面及后端的登录注册功能，包括jwt权限认证">
       <option name="closed" value="true" />
@@ -214,7 +198,23 @@
       <option name="project" value="LOCAL" />
       <updated>1757075998510</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="增加判断弈子有效移动位置功能、棋子移动功能和悔棋功能">
+      <option name="closed" value="true" />
+      <created>1757159069258</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1757159069258</updated>
+    </task>
+    <task id="LOCAL-00007" summary="增加判断弈子有效移动位置功能、棋子移动功能和悔棋功能">
+      <option name="closed" value="true" />
+      <created>1757159264574</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1757159264574</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,7 +225,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -237,6 +249,7 @@
     <MESSAGE value="前端页面及后端的登录注册功能，包括jwt权限认证" />
     <MESSAGE value="单人摆谱界面初始化的开发（初始化接口、获取游戏状态接口的开发），修改single-practice.html的一些问题" />
     <MESSAGE value="编写棋子的默认规则引擎，后续会开发更多" />
-    <option name="LAST_COMMIT_MESSAGE" value="编写棋子的默认规则引擎，后续会开发更多" />
+    <MESSAGE value="增加判断弈子有效移动位置功能、棋子移动功能和悔棋功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加判断弈子有效移动位置功能、棋子移动功能和悔棋功能" />
   </component>
 </project>

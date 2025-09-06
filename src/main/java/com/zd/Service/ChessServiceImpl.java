@@ -4,6 +4,7 @@ import com.zd.Entity.Board;
 import com.zd.Entity.GameState;
 import com.zd.Entity.Move;
 import com.zd.Entity.Piece;
+import com.zd.Enum.Color;
 import com.zd.Mapper.GameMapper;
 import com.zd.Mapper.MoveMapper;
 import com.zd.Rule.RuleEngine;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Base64;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -92,9 +94,22 @@ public class ChessServiceImpl implements ChessService{
         int currentMoveIndex = moveMapper.countMovesByGameId(gameState.getId());
         move.setMoveIndex(currentMoveIndex);
         board.addMoveToHistory(move);
-        //如果吃掉将/帅，设置胜负
 
-        //切换玩家
+
+        //拿到要移动的棋子
+        Piece toPiece = gameState.getBoard().getPiece(toX,toY);
+        //设置它的坐标为将要移动到的地方
+        log.info("toPiece不为空：{}",toPiece);
+        //棋子将要移动到的地方的有效路径
+        List<int[]> toPath = ruleEngine.validPath(gameState.getBoard(), toPiece);
+        // 在交换回合之前检查是否将军
+        boolean isCheck = ruleEngine.isInCheck(gameState.getBoard(), gameState, toPath);
+        // 将将军状态设置到Move对象中
+        move.setCheck(isCheck);
+
+        log.info("isCheck={}",isCheck);
+
+        //交换回合
         gameState.switchPlayer();
         //更新数据库
         gameState.setBoardState(board.serialize());
@@ -103,6 +118,7 @@ public class ChessServiceImpl implements ChessService{
         move.setGameId(gameState.getId());
         log.info("id:{}",move);
         moveMapper.insertMove(move);
+
         return move;
     }
     //实现悔棋方法

@@ -682,10 +682,19 @@
             );
 
             const data = await response.json();
+            // 检查是否将军（在移动完成后检查）
+            if (data.isCheck) {
+                // 使用后端返回的将军消息
+                const checkMessage = data.checkMessage || '将军！';
+                showCheckAlert(checkMessage);
+            }
 
             if (data.success) {
                 gameState = data.gameState;
+
+
                 renderBoard();
+
                 updateTurnIndicator();
 
                 // 显示移动结果
@@ -694,6 +703,8 @@
                 } else {
                     statusInfo.textContent = `${getPieceName(data.move.movedPiece)}移动到(${toX},${toY})`;
                 }
+                
+
 
                 // 胜负判定：从后端 boardState 附带的 result 字段提取
                 if (gameState && gameState.boardState) {
@@ -1005,6 +1016,77 @@
     // 显示/隐藏加载指示器
     function showLoading(show) {
         loadingIndicator.style.display = show ? 'block' : 'none';
+    }
+
+    // 显示将军动画
+    function showCheckAlert(message) {
+        // 创建将军提示框
+        const checkAlert = document.createElement('div');
+        checkAlert.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+            animation: checkPulse 0.5s ease-in-out;
+            text-align: center;
+            border: 3px solid #fff;
+        `;
+        
+        checkAlert.innerHTML = `
+            <div style="font-size: 28px; margin-bottom: 10px;">⚔️</div>
+            <div>${message}</div>
+        `;
+        
+        // 添加动画样式
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes checkPulse {
+                0% { 
+                    transform: translate(-50%, -50%) scale(0.5); 
+                    opacity: 0; 
+                }
+                50% { 
+                    transform: translate(-50%, -50%) scale(1.2); 
+                    opacity: 1; 
+                }
+                100% { 
+                    transform: translate(-50%, -50%) scale(1); 
+                    opacity: 1; 
+                }
+            }
+            @keyframes checkShake {
+                0%, 100% { transform: translate(-50%, -50%) translateX(0); }
+                25% { transform: translate(-50%, -50%) translateX(-5px); }
+                75% { transform: translate(-50%, -50%) translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        document.body.appendChild(checkAlert);
+        
+        // 添加震动效果
+        setTimeout(() => {
+            checkAlert.style.animation = 'checkShake 0.3s ease-in-out';
+        }, 500);
+        
+        // 2秒后自动消失
+        setTimeout(() => {
+            checkAlert.style.opacity = '0';
+            checkAlert.style.transform = 'translate(-50%, -50%) scale(0.8)';
+            checkAlert.style.transition = 'all 0.3s ease-out';
+            setTimeout(() => {
+                checkAlert.remove();
+                style.remove();
+            }, 300);
+        }, 2000);
     }
 
     // 事件监听
