@@ -3,7 +3,9 @@ package com.zd.Rule;
 import com.zd.Entity.Board;
 import com.zd.Entity.Piece;
 import com.zd.Enum.Color;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RuleOfBing extends Piece {
     public boolean isValidBingMove(Board board, int fromX, int fromY, int toX, int toY, Color color) {
         // 兵/卒移动规则

@@ -3,8 +3,9 @@ package com.zd.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zd.Enum.Color;
+import lombok.Data;
 
-
+@Data
 public class GameState {
     //主键id
     private Long id;

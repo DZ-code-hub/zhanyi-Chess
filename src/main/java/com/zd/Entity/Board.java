@@ -6,6 +6,7 @@ import lombok.Data;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,7 +14,7 @@ public class Board {
     //生成二维数组表示棋盘坐标（统一为 grid[x][y]：x 列 [0..8]，y 行 [0..9]）
     private Piece[][] grid = new Piece[9][10];
     //生成一个列表存放棋子的移动历史，以便悔棋
-    private List<Move> moveHistory ;
+    private List<Move> moveHistory =new ArrayList<>();
 
     //初始化棋盘,向默认的位置添加棋子对象
     public void initializeBoard(){

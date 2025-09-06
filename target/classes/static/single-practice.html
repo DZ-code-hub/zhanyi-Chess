@@ -690,9 +690,9 @@
 
                 // 显示移动结果
                 if (data.move.capturedPiece) {
-                    statusInfo.textContent = `${getPieceName(data.move.piece)}移动到(${toX},${toY})，吃掉了${getPieceName(data.move.capturedPiece)}`;
+                    statusInfo.textContent = `${getPieceName(data.move.movedPiece)}移动到(${toX},${toY})，吃掉了${getPieceName(data.move.capturedPiece)}`;
                 } else {
-                    statusInfo.textContent = `${getPieceName(data.move.piece)}移动到(${toX},${toY})`;
+                    statusInfo.textContent = `${getPieceName(data.move.movedPiece)}移动到(${toX},${toY})`;
                 }
 
                 // 胜负判定：从后端 boardState 附带的 result 字段提取
@@ -761,7 +761,7 @@
 
         try {
             const token = localStorage.getItem('authToken');
-            const response = await fetch(`${apiBaseUrl}/restart?sessionId=${sessionId}`, {
+            const response = await fetch(`${apiBaseUrl}/initialize?sessionId=${sessionId}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + token,
@@ -962,7 +962,30 @@
         turnIndicator.style.color = gameState.currentPlayer === 'RED' ? '#b30000' : '#000';
     }
 
-
+    // 修改后的棋子文本映射
+    function getPieceText(piece) {
+        const pieces = {
+            RED: {
+                CHE: '车',
+                MA: '马',
+                XIANG: '相',
+                SHI: '仕',
+                BOSS: '帅',
+                PAO: '炮',
+                BING: '兵'
+            },
+            BLACK: {
+                CHE: '车',
+                MA: '马',
+                XIANG: '象',
+                SHI: '士',
+                BOSS: '将',
+                PAO: '炮',
+                BING: '卒'
+            }
+        };
+        return pieces[piece.color][piece.type];
+    }
 
     // 获取棋子名称
     // 修改后的棋子名称映射

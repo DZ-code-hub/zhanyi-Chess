@@ -2,7 +2,9 @@ package com.zd.Rule;
 
 import com.zd.Entity.Board;
 import com.zd.Entity.Piece;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RuleOfMa extends Piece {
     public boolean isValidMaMove(Board board, int fromX, int fromY, int toX, int toY) {
         // 马走日字

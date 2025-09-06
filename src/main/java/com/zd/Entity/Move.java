@@ -1,8 +1,14 @@
 package com.zd.Entity;
 
+import com.zd.Enum.Color;
+import com.zd.Enum.PieceType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Move {
     //id
     private Long id;
@@ -19,4 +25,24 @@ public class Move {
     private Piece capturedPiece;
     //移动序号
     private int moveIndex;
+
+    // 新增：用于数据库存储的字段
+
+    private PieceType pieceType;
+
+    private Color pieceColor;
+
+    private PieceType capturedPieceType;
+
+    private Color capturedPieceColor;
+
+
+    public Move(int fromX, int fromY, int toX, int toY, Piece movedPiece, Piece capturedPiece) {
+        this.fromX = fromX;
+        this.fromY = fromY;
+        this.toX = toX;
+        this.toY = toY;
+        this.movedPiece = movedPiece;
+        this.capturedPiece = capturedPiece;
+    }
 }

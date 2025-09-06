@@ -4,7 +4,9 @@ import com.zd.Entity.Board;
 import com.zd.Entity.Piece;
 import com.zd.Enum.Color;
 import com.zd.Enum.PieceType;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RuleOfBoss extends Piece {
     public boolean isValidBossMove(Board board, int fromX, int fromY, int toX, int toY, Color color) {
         // 将/帅只能在九宫格内移动

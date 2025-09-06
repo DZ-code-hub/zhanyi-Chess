@@ -4,9 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="904309fc-c0cc-49a0-806b-4675d7783840" name="更改" comment="单人摆谱界面初始化的开发（初始化接口、获取游戏状态接口的开发），修改single-practice.html的一些问题">
+    <list default="true" id="904309fc-c0cc-49a0-806b-4675d7783840" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Controller/ChessController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Controller/ChessController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Entity/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Entity/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Mapper/GameMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Mapper/GameMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Mapper/MoveMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Mapper/MoveMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfBing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfBing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfBoss.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfBoss.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfChe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfChe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfMa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfMa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfPao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfPao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfShi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfShi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfXiang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfXiang.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Service/ChessService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Service/ChessService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Service/ChessServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Service/ChessServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/single-practice.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/single-practice.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Controller/ChessController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Controller/ChessController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Entity/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Entity/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Entity/GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Entity/GameState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Entity/Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Entity/Move.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Mapper/GameMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Mapper/GameMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Mapper/MoveMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Mapper/MoveMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Service/ChessService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Service/ChessService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Service/ChessServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Service/ChessServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/static/single-practice.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/single-practice.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,6 +48,7 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -143,7 +168,11 @@
       <workItem from="1757062514377" duration="12000" />
       <workItem from="1757063224151" duration="509000" />
       <workItem from="1757068285561" duration="1899000" />
-      <workItem from="1757072674689" duration="3128000" />
+      <workItem from="1757072674689" duration="3390000" />
+      <workItem from="1757080459319" duration="52000" />
+      <workItem from="1757126351835" duration="11847000" />
+      <workItem from="1757151259986" duration="983000" />
+      <workItem from="1757152591741" duration="4649000" />
     </task>
     <task id="LOCAL-00001" summary="前端页面及后端的登录注册功能，包括jwt权限认证">
       <option name="closed" value="true" />
@@ -169,7 +198,23 @@
       <option name="project" value="LOCAL" />
       <updated>1757063408846</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="编写棋子的默认规则引擎，后续会开发更多">
+      <option name="closed" value="true" />
+      <created>1757075952643</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1757075952643</updated>
+    </task>
+    <task id="LOCAL-00005" summary="编写棋子的默认规则引擎，后续会开发更多">
+      <option name="closed" value="true" />
+      <created>1757075998510</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1757075998510</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,6 +236,7 @@
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <MESSAGE value="前端页面及后端的登录注册功能，包括jwt权限认证" />
     <MESSAGE value="单人摆谱界面初始化的开发（初始化接口、获取游戏状态接口的开发），修改single-practice.html的一些问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="单人摆谱界面初始化的开发（初始化接口、获取游戏状态接口的开发），修改single-practice.html的一些问题" />
+    <MESSAGE value="编写棋子的默认规则引擎，后续会开发更多" />
+    <option name="LAST_COMMIT_MESSAGE" value="编写棋子的默认规则引擎，后续会开发更多" />
   </component>
 </project>

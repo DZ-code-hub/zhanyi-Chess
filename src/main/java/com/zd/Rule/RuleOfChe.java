@@ -2,7 +2,10 @@ package com.zd.Rule;
 
 import com.zd.Entity.Board;
 import com.zd.Entity.Piece;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RuleOfChe extends Piece {
     public boolean isValidCheMove(Board board, int fromX, int fromY, int toX, int toY) {
         // 车走直线

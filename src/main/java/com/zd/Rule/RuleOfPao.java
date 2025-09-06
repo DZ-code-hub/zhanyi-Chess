@@ -2,7 +2,9 @@ package com.zd.Rule;
 
 import com.zd.Entity.Board;
 import com.zd.Entity.Piece;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RuleOfPao extends Piece {
     public boolean isValidPaoMove(Board board, int fromX, int fromY, int toX, int toY) {
         // 炮走直线
