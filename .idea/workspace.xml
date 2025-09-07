@@ -4,16 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="904309fc-c0cc-49a0-806b-4675d7783840" name="更改" comment="增加判断弈子有效移动位置功能、棋子移动功能和悔棋功能">
+    <list default="true" id="904309fc-c0cc-49a0-806b-4675d7783840" name="更改" comment="增加在线匹配功能">
+      <change afterPath="$PROJECT_DIR$/.idea/httpClient.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zd/Controller/MatchController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zd/Controller/RoomWsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zd/HandshakeHander/HandshakeHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zd/Service/MatchService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zd/Service/MathServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Controller/MatchController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Controller/RoomWsController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/HandshakeHander/HandshakeHandler$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/HandshakeHander/HandshakeHandler$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/HandshakeHander/HandshakeHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleEngine$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleEngine.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfBing.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfBoss.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfChe.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfMa.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfPao.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfShi.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfXiang.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Service/MatchService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Service/MathServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Controller/ChessController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Controller/ChessController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Move.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Service/ChessServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Service/ChessServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/config/WebsocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/config/WebsocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/match.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/match.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/online.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/online.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/single-practice.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/single-practice.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Controller/ChessController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Controller/ChessController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Entity/Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Entity/Move.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Service/ChessServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Service/ChessServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/config/WebsocketConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/config/WebsocketConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/match.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/match.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/online.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/online.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/static/single-practice.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/single-practice.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -157,6 +183,17 @@
       <workItem from="1757151259986" duration="983000" />
       <workItem from="1757152591741" duration="4649000" />
       <workItem from="1757158947401" duration="10438000" />
+      <workItem from="1757169966768" duration="546000" />
+      <workItem from="1757209585071" duration="254000" />
+      <workItem from="1757211294755" duration="5792000" />
+      <workItem from="1757220389306" duration="8720000" />
+      <workItem from="1757242719070" duration="73000" />
+      <workItem from="1757244263518" duration="1387000" />
+      <workItem from="1757245688964" duration="376000" />
+      <workItem from="1757246113958" duration="1108000" />
+      <workItem from="1757247357803" duration="8000" />
+      <workItem from="1757247401886" duration="44000" />
+      <workItem from="1757247494055" duration="1977000" />
     </task>
     <task id="LOCAL-00001" summary="前端页面及后端的登录注册功能，包括jwt权限认证">
       <option name="closed" value="true" />
@@ -214,7 +251,23 @@
       <option name="project" value="LOCAL" />
       <updated>1757159264574</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="新增被将军时提示将军功能">
+      <option name="closed" value="true" />
+      <created>1757170021295</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1757170021295</updated>
+    </task>
+    <task id="LOCAL-00009" summary="增加在线匹配功能">
+      <option name="closed" value="true" />
+      <created>1757249452268</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1757249452268</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,7 +284,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="master" />
                       </list>
                     </value>
                   </entry>
@@ -250,6 +303,8 @@
     <MESSAGE value="单人摆谱界面初始化的开发（初始化接口、获取游戏状态接口的开发），修改single-practice.html的一些问题" />
     <MESSAGE value="编写棋子的默认规则引擎，后续会开发更多" />
     <MESSAGE value="增加判断弈子有效移动位置功能、棋子移动功能和悔棋功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加判断弈子有效移动位置功能、棋子移动功能和悔棋功能" />
+    <MESSAGE value="新增被将军时提示将军功能" />
+    <MESSAGE value="增加在线匹配功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加在线匹配功能" />
   </component>
 </project>

@@ -98,16 +98,16 @@ public class ChessServiceImpl implements ChessService{
 
         //拿到要移动的棋子
         Piece toPiece = gameState.getBoard().getPiece(toX,toY);
-        //设置它的坐标为将要移动到的地方
         log.info("toPiece不为空：{}",toPiece);
+
         //棋子将要移动到的地方的有效路径
         List<int[]> toPath = ruleEngine.validPath(gameState.getBoard(), toPiece);
+
         // 在交换回合之前检查是否将军
         boolean isCheck = ruleEngine.isInCheck(gameState.getBoard(), gameState, toPath);
+
         // 将将军状态设置到Move对象中
         move.setCheck(isCheck);
-
-        log.info("isCheck={}",isCheck);
 
         //交换回合
         gameState.switchPlayer();

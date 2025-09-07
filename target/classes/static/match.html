@@ -120,6 +120,11 @@
                 const ifr = document.getElementById('board');
                 if (ifr && ifr.contentWindow) {
                     ifr.contentWindow.postMessage({ type: 'refreshGameState' }, '*');
+                    // 若服务端广播含将军信息，则同步转发给子页展示动画
+                    if (evt.isCheck || (evt.gameState && evt.gameState.isCheck) || evt.checkMessage) {
+                        const checkMsg = evt.checkMessage || (evt.gameState && evt.gameState.checkMessage) || '将军！';
+                        ifr.contentWindow.postMessage({ type: 'check', message: checkMsg }, '*');
+                    }
                 }
             } else if (evt.type === 'undoRejected') {
                 const ifr = document.getElementById('board');

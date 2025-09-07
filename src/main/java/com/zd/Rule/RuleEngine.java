@@ -103,6 +103,7 @@ public class RuleEngine {
 
     //判断是否被将军，若被将则只能解将
     // 检查是否将军对方
+    //判断是否将军只能放在走子后，交换回合之前做，否则会在被将一方走子后才提示将军
     public boolean isInCheck(Board board, GameState gameState,List<int[]> toPath) {
         Color currentPlayer = gameState.getCurrentPlayer();
         //拿到对方老将的颜色

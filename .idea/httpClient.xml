@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="HttpClientEndpointsTabState">
+    <option name="requestToText" value="&lt;CachedHttpClientTabRequests&gt;&#10;  &lt;entry key=&quot;aa89571d605ed52f525fa2f8eeda4ba4bba3d7c5&quot; value=&quot;###&amp;#10;POST http://localhost:8081/api/match/queue?&amp;#10;    clientId={{$random.alphanumeric(8)}}&quot; /&gt;&#10;&lt;/CachedHttpClientTabRequests&gt;" />
+  </component>
+</project>

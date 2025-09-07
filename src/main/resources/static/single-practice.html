@@ -1133,6 +1133,11 @@
                 if (sideIndicator) sideIndicator.textContent = '您当前执：' + (yourColor === 'RED' ? '红方' : '黑方');
             }
         }
+        // 新增：将军事件处理（来自容器页 match.html 的转发）
+        else if (e.data.type === 'check') {
+            const msg = e.data.message || '将军！';
+            showCheckAlert(msg);
+        }
     });
 
     // 兼容保留：仍支持父页面主动下发 yourColor（不依赖此路径）
