@@ -30,7 +30,7 @@ redis 6.0及以上；
 涉及到依赖均在pom.xml文件中；
 
 运行前请把application.yml文件中的mysql的驱动和redis的连接换成自己的；
-关于数据库中的表和请在自己的数据库中运行zhanyi_chess.sql文件；
+关于数据库中的表和数据请在自己的数据库中运行zhanyi_chess.sql文件；
 做完这些后，即可启动项目并访问localhost:8081来打开
 
 
