@@ -17,21 +17,22 @@
 <img width="2538" height="1564" alt="屏幕截图 2025-10-18 221449" src="https://github.com/user-attachments/assets/f7a5ec11-466e-4728-9bd7-84b4c20001e9" />
 强化界面展示
 <img width="2526" height="1442" alt="屏幕截图 2025-10-18 221512" src="https://github.com/user-attachments/assets/f7a7d7a1-2086-468a-927d-ee12bac64e83" />
-强化后棋子移动路径展示（小绿点就是可移动的路径）
+强化后棋子移动路径展示（小绿点就是可移动的路径）  
+
 <img width="576" height="516" alt="屏幕截图 2025-10-18 221548" src="https://github.com/user-attachments/assets/1e25c23d-f202-4778-b3f6-43f2e206793f" />
 
 
 
-快速开始：
-本项目SpringBoot版本为3.5.5；
-Java版本为17所以请用Java17及以上环境运行项目；
-mysql 8.0及以上；
-redis 6.0及以上；
-涉及到依赖均在pom.xml文件中；
+快速开始：  
+本项目SpringBoot版本为3.5.5；  
+Java版本为17所以请用Java17及以上环境运行项目；  
+mysql 8.0及以上；  
+redis 6.0及以上；  
+涉及到依赖均在pom.xml文件中；  
 
-运行前请把application.yml文件中的mysql的驱动和redis的连接换成自己的；
-关于数据库中的表和数据请在自己的数据库中运行zhanyi_chess.sql文件；
-做完这些后，即可启动项目并访问localhost:8081来打开
+运行前请把application.yml文件中的mysql的驱动和redis的连接换成自己的；  
+关于数据库中的表和数据请在自己的数据库中运行zhanyi_chess.sql文件；  
+做完这些后，即可启动项目并访问localhost:8081来打开  
 
 
 
