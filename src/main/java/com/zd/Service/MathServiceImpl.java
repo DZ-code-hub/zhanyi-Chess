@@ -1,9 +1,11 @@
 package com.zd.Service;
 
 import com.zd.Enum.Color;
+import com.zd.Mapper.GameMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.*;
 
 @Service
@@ -16,6 +18,12 @@ public class MathServiceImpl implements MatchService{
     private final Map<String, String> roomRedUser = new HashMap<>();
     private final Map<String, String> roomBlackUser = new HashMap<>();
     public final Map<String,Color> userToColor = new HashMap<>();
+    private final GameMapper gameMapper;
+
+    public MathServiceImpl(GameMapper gameMapper) {
+        this.gameMapper = gameMapper;
+    }
+
     //进入队列
 //    synchronized用于实现线程同步，确保在多线程环境下代码的线程安全性。
     public synchronized String enqueue(String userId){
@@ -28,6 +36,7 @@ public class MathServiceImpl implements MatchService{
 
         // 入队
         queue.offerLast(userId);
+
         log.info("用户：{}入队",userId);
 
         // 至少需要两个不同用户才能配对
@@ -88,6 +97,32 @@ public class MathServiceImpl implements MatchService{
     //取消匹配，直接从匹配队列中移除
     public synchronized void cancel(String userId) {
         queue.removeIf(u -> u.equals(userId));
+    }
+
+
+    //删除gameState中对应session——id的数据
+    @Override
+    public boolean leaveRoom(String gameId) {
+        if(gameId == null){
+            log.info("gameId为空");
+            return false;
+        }
+        //从数据库中删除这一局的游戏
+        gameMapper.deleteGame(gameId);
+
+        String a = roomRedUser.get(gameId);
+        String b = roomBlackUser.get(gameId);
+
+        //把Room中的两个玩家删除掉
+        roomRedUser.remove(gameId);
+        roomBlackUser.remove(gameId);
+
+        userToRoom.remove(a);
+        userToRoom.remove(b);
+
+        userToColor.remove(a);
+        userToColor.remove(b);
+        return true;
     }
 
     public synchronized String getRedUser(String roomId) {

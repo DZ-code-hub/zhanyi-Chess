@@ -5,12 +5,14 @@ import com.zd.Entity.Move;
 import com.zd.Enum.Color;
 import com.zd.Service.ChessService;
 import com.zd.Service.MatchService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
@@ -18,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@Slf4j
 public class RoomWsController {
     @Autowired
     ChessService chessService;
@@ -36,6 +39,13 @@ public class RoomWsController {
         int fromY = (int) body.getOrDefault("fromY", 0);
         int toX = (int) body.getOrDefault("toX", 0);
         int toY = (int) body.getOrDefault("toY", 0);
+        
+        // 从消息体中获取mode和modePiece参数
+        String mode = (String) body.getOrDefault("mode", "default");
+        String modePiece = (String) body.getOrDefault("modePiece", null);
+        
+        // 添加日志输出
+        log.info("WebSocket move - mode: {}, modePiece: {}", mode, modePiece);
 
         String userId = principal != null ? principal.getName() : null;
         GameState stateBefore = chessService.getGameState(roomId);
@@ -67,7 +77,7 @@ public class RoomWsController {
         }
 
         //执行移动，拿到本次移动信息
-        Move move = chessService.makeMove(roomId, fromX, fromY, toX, toY);
+        Move move = chessService.makeMove(roomId, fromX, fromY, toX, toY,mode, modePiece);
         //广播到房间内所有用户
         GameState state = chessService.getGameState(roomId);
 
@@ -104,4 +114,33 @@ public class RoomWsController {
             messagingTemplate.convertAndSend("/topic/room/" + roomId, evt);
         }
     }
+
+    //退出房间，即断开ws连接
+    //路径
+    @MessageMapping("/room/{roomId}/leave")
+    public  Map<String,Object> tuiChuRoom(Principal principal){
+        Map<String, Object> resp = new HashMap<>();
+        if (principal == null) {
+            resp.put("success", false);
+            resp.put("message", "未登录");
+            return resp;
+        }
+
+        String gameId = principal.getName();
+
+        boolean success = matchService.leaveRoom(gameId);
+        if(!success){
+            resp.put("success",false);
+            resp.put("message","退出房间失败");
+        }
+        else{
+            resp.put("success",true);
+            resp.put("message","退出房间成功");
+        }
+        return resp;
+    }
+
+
+
+
 }

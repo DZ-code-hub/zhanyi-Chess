@@ -33,10 +33,12 @@ public class MatchController {
         //获取clientId，若principal为空则使用clientId，若clientId为空则随机生成一个
         String userId = principal != null ? principal.getName() :
                         (clientId != null ? clientId : ("http-" +UUID.randomUUID()));
+        log.info("userId:{}",userId);
 
         String roomId = matchService.enqueue(userId);
         Map<String, Object> resp = new HashMap<>();
         resp.put("enqueued", true);
+
         if (roomId != null) {
             // 通知两位玩家配对成功
             String opponent = matchService.getOpponent(userId);
@@ -49,6 +51,7 @@ public class MatchController {
             }
             resp.put("roomId", roomId);
         }
+        log.info("没有进入房间");
         return resp;
     }
 
@@ -59,6 +62,7 @@ public class MatchController {
         matchService.cancel(userId);
         Map<String, Object> resp = new HashMap<>();
         resp.put("canceled", true);
+        log.info("取消匹配成功");
         return resp;
     }
 
@@ -86,6 +90,7 @@ public class MatchController {
             resp.put("message", "未登录");
             return resp;
         }
+
         Color color = matchService.getUserColor(principal.getName());
         if (color == null) {
             resp.put("success", false);
@@ -96,6 +101,9 @@ public class MatchController {
         }
         return resp;
     }
+
+
+
 
 
 }

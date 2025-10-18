@@ -9,7 +9,7 @@ public interface ChessService {
 
     GameState getGameState(String sessionId);
 
-    Move makeMove(String sessionId, int fromX, int fromY, int toX, int toY);
+    Move makeMove(String sessionId, int fromX, int fromY, int toX, int toY,String mode,String modePiece);
 
     boolean undoMove(String sessionId);
 }

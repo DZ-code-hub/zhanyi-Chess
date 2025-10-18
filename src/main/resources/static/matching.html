@@ -138,7 +138,10 @@
                         const yourColor = evt.yourColor || '';
                         log('匹配成功！正在进入游戏...');
                         setTimeout(() => {
-                            window.location.href = 'match.html?roomId=' + encodeURIComponent(roomId) + '&cid=' + encodeURIComponent(cid) + '&color=' + encodeURIComponent(yourColor);
+                            // 检查URL参数中是否有mode参数
+                            const urlParams = new URLSearchParams(window.location.search);
+                            const mode = urlParams.get('mode') || 'default';
+                            window.location.href = 'match.html?roomId=' + encodeURIComponent(roomId) + '&cid=' + encodeURIComponent(cid) + '&color=' + encodeURIComponent(yourColor) + '&mode=' + encodeURIComponent(mode);
                         }, 1000);
                     }
                 } catch (error) {

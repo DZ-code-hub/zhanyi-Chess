@@ -15,13 +15,11 @@ public class RegisterServiceImpl implements RegisterService{
     RegisterMapper registerMapper;
     public RegisterResponse Register(RegisterRequest request) {
 
-
         //创建一个user对象
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(request.getPassword());
         user.setEmail(request.getEmail());
-        log.info("注册成功：{}",user);
         //将新添加的用户存入数据库中
         registerMapper.saveUser(user);
         //返回注册成功的响应

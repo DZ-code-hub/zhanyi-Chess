@@ -210,6 +210,20 @@
             margin: 0 auto;
         }
 
+
+        /* 红方视角：棋盘旋转 */
+        .chessboard.rotate-180 {
+            transform: rotate(180deg);
+            transform-origin: 50% 50%;
+        }
+
+        /* 让棋子与提示点在翻转棋盘时保持正向 */
+        .chessboard.rotate-180 .piece,
+        .chessboard.rotate-180 .valid-move {
+            transform: rotate(180deg);
+        }
+
+
         /* 棋盘左侧阵营提示 */
         .side-indicator {
             position: absolute;
@@ -226,6 +240,8 @@
             font-weight: 600;
             line-height: 1.4;
         }
+
+
 
         /* 棋盘网格配置 */
         :root {
@@ -306,6 +322,10 @@
             transform: scale(1.1);
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
             z-index: 15;
+            /* 红方悬停：保持翻转并放大 */
+            .piece.red:hover:not(.selected) {
+                transform: rotate(180deg) scale(1.1);
+            }
         }
 
         /* 合法移动提示 */
@@ -432,6 +452,70 @@
                 flex-wrap: wrap;
             }
         }
+
+        /* 卡片选择样式 */
+        .card {
+            width: 120px;
+            height: 150px;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .card.selected {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 3px solid #ffd700;
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .card-desc {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                width: 100px;
+                height: 130px;
+            }
+
+            .card-icon {
+                font-size: 30px;
+            }
+
+            .card-title {
+                font-size: 14px;
+            }
+
+            .card-desc {
+                font-size: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -487,15 +571,32 @@
         <!--            <p class="content-subtitle">自由摆放棋子，研究经典棋局，提升象棋技巧</p>-->
         <!--        </div>-->
 
+        <!-- 音效开关 -->
+        <label id="soundSetting" style="display:inline-flex;align-items:center;gap:8px;margin-left:12px;">
+            <input type="checkbox" id="soundToggle">
+            <span>启用音效</span>
+        </label>
+
         <div class="chess-container">
             <div class="side-indicator" id="sideIndicator">您当前执：-</div>
-            <div class="status-info" id="statusInfo">当前回合: <span id="turnIndicator">红方</span></div>
+            <div class="status-info" id="statusInfo">当前回合: <span id="turnIndicator">红方</span> | 回合数: <span id="turnCount">0</span></div>
 
             <!-- 象棋棋盘 -->
             <div class="chessboard" id="chessboard">
                 <!-- 加载指示器 -->
                 <div class="loading" id="loadingIndicator">
                     <i class="fas fa-spinner fa-spin"></i> 初始化棋盘...
+                </div>
+
+                <!-- 卡片选择模态框 -->
+                <div id="cardSelectionModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center;">
+                    <div style="background: white; border-radius: 20px; padding: 30px; max-width: 600px; width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                        <h2 style="text-align: center; margin-bottom: 20px; color: #333; font-size: 24px;">选择棋子强化</h2>
+                        <p style="text-align: center; color: #666; margin-bottom: 30px;">10回合已过，请选择一个棋子进行强化</p>
+                        <div id="cardContainer" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+                            <!-- 卡片将通过JavaScript动态生成 -->
+                        </div>
+                    </div>
                 </div>
 
                 <!-- 棋盘图片已包含所有格线、九宫斜线、点位、楚河汉界和坐标 -->
@@ -572,7 +673,12 @@
     const __params = new URLSearchParams(window.location.search);
     const sessionId = __params.get('roomId') || 'single_practice_session';
     let yourColor = (__params.get('color') || '').toUpperCase() || null; // 'RED' | 'BLACK'
+    let gameMode = __params.get('mode') || 'default'; // 游戏模式：default 或 new
+    let modePiece = null; // 选择的强化棋子
+    let turnCount = 0; // 回合计数
+    let hasShownCardSelection = false; // 是否已显示卡片选择
     const apiBaseUrl = '/api/chess';
+    
 
     // DOM元素
     const chessboard = document.getElementById('chessboard');
@@ -649,7 +755,26 @@
             const data = await response.json();
 
             if (data.success) {
+                const previousPlayer = gameState ? gameState.currentPlayer : null;
                 gameState = data.gameState;
+                
+                // 检查回合是否发生变化（在线模式下通过玩家变化来判断）
+                if (previousPlayer && previousPlayer !== gameState.currentPlayer) {
+                    // 如果从黑方变为红方，说明一轮回合结束
+                    if (previousPlayer === 'BLACK' && gameState.currentPlayer === 'RED') {
+                        turnCount++;
+                    }
+                    
+                    // 检查是否需要显示卡片选择（新模式且10回合后且未显示过）
+                    if (gameMode === 'new' && turnCount >= 10 && !hasShownCardSelection) {
+                        hasShownCardSelection = true;
+                        // 延迟显示卡片选择，让用户看到回合数更新
+                        setTimeout(() => {
+                            showCardSelection();
+                        }, 500);
+                    }
+                }
+                
                 renderBoard();
                 updateTurnIndicator();
             }
@@ -666,20 +791,33 @@
             // 在线模式下通过父窗口 WebSocket 发送
             const isOnline = !!(new URLSearchParams(window.location.search)).get('roomId');
             if (isOnline && window.parent !== window) {
-                window.parent.postMessage({ type: 'wsMove', fromX, fromY, toX, toY }, '*');
+                console.log('发送WebSocket移动消息:', { fromX, fromY, toX, toY, gameMode, modePiece });
+                window.parent.postMessage({ 
+                    type: 'wsMove', 
+                    fromX, 
+                    fromY, 
+                    toX, 
+                    toY, 
+                    mode: gameMode,
+                    modePiece: modePiece 
+                }, '*');
                 return; // 等待房间广播后父页会通知我刷新
             }
             const token = localStorage.getItem('authToken');
-            const response = await fetch(
-                `${apiBaseUrl}/move?sessionId=${sessionId}&fromX=${fromX}&fromY=${fromY}&toX=${toX}&toY=${toY}`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                        'Content-Type': 'application/json'
-                    }
+            let moveUrl = `${apiBaseUrl}/move?sessionId=${sessionId}&fromX=${fromX}&fromY=${fromY}&toX=${toX}&toY=${toY}`;
+            if (gameMode) {
+                moveUrl += `&mode=${encodeURIComponent(gameMode)}`;
+            }
+            if (modePiece) {
+                moveUrl += `&modePiece=${encodeURIComponent(modePiece)}`;
+            }
+            const response = await fetch(moveUrl, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
                 }
-            );
+            });
 
             const data = await response.json();
             // 检查是否将军（在移动完成后检查）
@@ -690,8 +828,25 @@
             }
 
             if (data.success) {
+                const previousPlayer = gameState ? gameState.currentPlayer : null;
                 gameState = data.gameState;
 
+                // 检查回合是否发生变化（单人模式下通过玩家变化来判断）
+                if (previousPlayer && previousPlayer !== gameState.currentPlayer) {
+                    // 如果从黑方变为红方，说明一轮回合结束
+                    if (previousPlayer === 'BLACK' && gameState.currentPlayer === 'RED') {
+                        turnCount++;
+                    }
+                    
+                    // 检查是否需要显示卡片选择（新模式且10回合后且未显示过）
+                    if (gameMode === 'new' && turnCount >= 10 && !hasShownCardSelection) {
+                        hasShownCardSelection = true;
+                        // 延迟显示卡片选择，让用户看到回合数更新
+                        setTimeout(() => {
+                            showCardSelection();
+                        }, 500);
+                    }
+                }
 
                 renderBoard();
 
@@ -784,6 +939,10 @@
 
             if (data.success) {
                 gameState = data.gameState;
+                // 重置回合计数和卡片选择状态
+                turnCount = 0;
+                hasShownCardSelection = false;
+                modePiece = null;
                 renderBoard();
                 updateTurnIndicator();
                 statusInfo.textContent = '游戏已重置';
@@ -871,6 +1030,7 @@
                 return;
             }
             selectedPiece = pieceEl;
+            if (soundEnabled) playClickSound();
             pieceEl.classList.add('selected');
             showValidMoves(x, y);
             return;
@@ -898,6 +1058,7 @@
                 clearValidMoves();
                 return;
             }
+            if (soundEnabled) playMoveSound();
             makeMove(selectedX, selectedY, x, y);
 
             // 清除选择和移动提示
@@ -911,7 +1072,15 @@
     async function showValidMoves(x, y) {
         try {
             const token = localStorage.getItem('authToken');
-            const res = await fetch(`${apiBaseUrl}/valid-moves?sessionId=${sessionId}&fromX=${x}&fromY=${y}`, {
+            let validMovesUrl = `${apiBaseUrl}/valid-moves?sessionId=${sessionId}&fromX=${x}&fromY=${y}`;
+            if (gameMode) {
+                validMovesUrl += `&mode=${encodeURIComponent(gameMode)}`;
+            }
+            if (modePiece) {
+                validMovesUrl += `&modePiece=${encodeURIComponent(modePiece)}`;
+            }
+            console.log('获取合法移动:', { x, y, gameMode, modePiece, validMovesUrl });
+            const res = await fetch(validMovesUrl, {
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }
@@ -953,6 +1122,7 @@
         const fromX = parseInt(selectedPiece.dataset.x);
         const fromY = parseInt(selectedPiece.dataset.y);
 
+        if (soundEnabled) playMoveSound();
         makeMove(fromX, fromY, x, y);
 
         selectedPiece.classList.remove('selected');
@@ -971,6 +1141,12 @@
 
         turnIndicator.textContent = gameState.currentPlayer === 'RED' ? '红方' : '黑方';
         turnIndicator.style.color = gameState.currentPlayer === 'RED' ? '#b30000' : '#000';
+        
+        // 更新回合计数显示
+        const turnCountElement = document.getElementById('turnCount');
+        if (turnCountElement) {
+            turnCountElement.textContent = turnCount;
+        }
     }
 
     // 修改后的棋子文本映射
@@ -1016,6 +1192,125 @@
     // 显示/隐藏加载指示器
     function showLoading(show) {
         loadingIndicator.style.display = show ? 'block' : 'none';
+    }
+
+    // 显示卡片选择模态框
+    function showCardSelection() {
+        const modal = document.getElementById('cardSelectionModal');
+        const container = document.getElementById('cardContainer');
+        
+        // 清空容器
+        container.innerHTML = '';
+        
+        // 定义可选择的棋子强化
+        const cardOptions = [
+            {
+                type: 'MA',
+                name: '八面威风',
+                icon: '♞',
+                description: '马的强化'
+            },
+            {
+                type: 'BOSS',
+                name: '御驾亲征',
+                icon: '♔',
+                description: '将帅的强化'
+            }
+        ];
+        
+        // 创建卡片
+        cardOptions.forEach(option => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.dataset.type = option.type;
+            
+            // 根据当前玩家颜色决定卡片样式
+            const isRedPlayer = yourColor === 'RED';
+            const cardStyle = isRedPlayer ? 'transform: rotate(180deg);' : '';
+            
+            card.innerHTML = `
+                <div class="card-icon" style="${cardStyle}">${option.icon}</div>
+                <div class="card-title" style="${cardStyle}">${option.name}</div>
+                <div class="card-desc" style="${cardStyle}">${option.description}</div>
+            `;
+            
+            card.addEventListener('click', () => selectCard(card, option.type));
+            container.appendChild(card);
+        });
+        
+        // 显示模态框
+        modal.style.display = 'flex';
+    }
+
+    // 选择卡片
+    function selectCard(cardElement, pieceType) {
+        // 移除其他卡片的选中状态
+        document.querySelectorAll('.card').forEach(card => {
+            card.classList.remove('selected');
+        });
+        
+        // 选中当前卡片
+        cardElement.classList.add('selected');
+        
+        // 设置modePiece
+        modePiece = pieceType;
+        
+        // 显示确认按钮
+        showConfirmButton(cardElement, pieceType);
+    }
+
+    // 显示确认按钮
+    function showConfirmButton(cardElement, pieceType) {
+        // 移除已存在的确认按钮
+        const existingBtn = document.querySelector('.confirm-btn');
+        if (existingBtn) {
+            existingBtn.remove();
+        }
+        
+        // 创建确认按钮
+        const confirmBtn = document.createElement('button');
+        confirmBtn.className = 'confirm-btn';
+        confirmBtn.textContent = '确认选择';
+        confirmBtn.style.cssText = `
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.4);
+        `;
+        
+        confirmBtn.addEventListener('click', () => confirmSelection(pieceType));
+        
+        // 将按钮添加到卡片容器
+        const container = document.getElementById('cardContainer');
+        container.appendChild(confirmBtn);
+    }
+
+    // 确认选择
+    function confirmSelection(pieceType) {
+        const modal = document.getElementById('cardSelectionModal');
+        modal.style.display = 'none';
+        
+        // 设置modePiece
+        modePiece = pieceType;
+        
+        // 更新状态信息
+        statusInfo.textContent = `已选择${pieceType === 'MA' ? '八面威风' : '御驾亲征'}！`;
+        
+        // 播放音效
+        if (soundEnabled) {
+            playBeep({ freq: 1200, durationMs: 150, type: 'sine', gain: 0.08 });
+        }
+        
+        // 可以在这里添加其他逻辑，比如通知后端
+        console.log('选择的强化棋子:', pieceType);
+        console.log('当前modePiece值:', modePiece);
     }
 
     // 显示将军动画
@@ -1089,10 +1384,71 @@
         }, 2000);
     }
 
+
+    // === 音效：简单短促提示音（无需音频文件） ===
+    let __audioCtx__ = null;
+    function ensureAudioContext() {
+        if (!__audioCtx__) {
+            const ACtx = window.AudioContext || window.webkitAudioContext;
+            __audioCtx__ = new ACtx();
+        }
+        // 某些浏览器首次交互后才能恢复
+        if (__audioCtx__.state === 'suspended') {
+            __audioCtx__.resume().catch(()=>{});
+        }
+    }
+
+    function playBeep({ freq = 880, durationMs = 90, type = 'sine', gain = 0.06 } = {}) {
+        try {
+            ensureAudioContext();
+            const ctx = __audioCtx__;
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
+            osc.type = type;
+            osc.frequency.value = freq;
+            g.gain.value = gain;
+            osc.connect(g);
+            g.connect(ctx.destination);
+            const now = ctx.currentTime;
+            osc.start(now);
+            osc.stop(now + durationMs / 1000);
+        } catch(e) {
+            // 静默失败即可
+        }
+    }
+
+    // 选中棋子音效（轻一点）
+    function playClickSound() {
+        playBeep({ freq: 1000, durationMs: 70, type: 'triangle', gain: 0.05 });
+    }
+
+    // 走子音效（稍重一点）
+    function playMoveSound() {
+        playBeep({ freq: 820, durationMs: 100, type: 'square', gain: 0.07 });
+    }
+
+    // === 音效开关 ===
+    let soundEnabled = false;
+    function initSoundSetting() {
+        try {
+            soundEnabled = localStorage.getItem('soundEnabled') === '1';
+            const toggle = document.getElementById('soundToggle');
+            if (toggle) {
+                toggle.checked = soundEnabled;
+                toggle.addEventListener('change', () => {
+                    soundEnabled = toggle.checked;
+                    localStorage.setItem('soundEnabled', soundEnabled ? '1' : '0');
+                    if (soundEnabled) ensureAudioContext();
+                });
+            }
+        } catch(e) {}
+    }
+
     // 事件监听
     document.getElementById('returnBtn').addEventListener('click', () => {
         window.location.href = 'gamebody.html';
     });
+    initSoundSetting();
 
     document.getElementById('undoBtn').addEventListener('click', undoMove);
     document.getElementById('restartBtn').addEventListener('click', restartGame);
@@ -1132,6 +1488,14 @@
                 const sideIndicator = document.getElementById('sideIndicator');
                 if (sideIndicator) sideIndicator.textContent = '您当前执：' + (yourColor === 'RED' ? '红方' : '黑方');
             }
+            // 在这里添加
+            if (typeof chessboard !== 'undefined' && chessboard) {
+                if (yourColor === 'RED') {
+                    chessboard.classList.add('rotate-180');
+                } else {
+                    chessboard.classList.remove('rotate-180');
+                }
+            }
         }
         // 新增：将军事件处理（来自容器页 match.html 的转发）
         else if (e.data.type === 'check') {
@@ -1140,7 +1504,6 @@
         }
     });
 
-    // 兼容保留：仍支持父页面主动下发 yourColor（不依赖此路径）
 
     // 调试功能：显示网格参考线（可选）
     function showGridLines() {

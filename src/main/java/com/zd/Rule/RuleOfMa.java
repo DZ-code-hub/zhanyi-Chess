@@ -26,4 +26,12 @@ public class RuleOfMa extends Piece {
 
         return board.getPiece(legX, legY) == null;
     }
+
+    //棋子马的强化规则：不会被别马腿
+    public boolean newVaildMaMove(Board board, int fromX, int fromY, int toX, int toY){
+        // 马走日字
+        int dx = Math.abs(toX - fromX);
+        int dy = Math.abs(toY - fromY);
+        return (dx == 1 && dy == 2) || (dx == 2 && dy == 1);
+    }
 }

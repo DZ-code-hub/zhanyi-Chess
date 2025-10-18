@@ -1,7 +1,6 @@
 package com.zd.config;
 
-import com.zd.HandshakeHander.HandshakeHandler;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
@@ -17,20 +16,47 @@ import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Configuration
 @EnableWebSocketMessageBroker
+@Slf4j
 public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
-    @Autowired
-    private  HandshakeHandler handshakeHandler;
-
-
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
                 .setAllowedOriginPatterns("*")
-                .setHandshakeHandler(handshakeHandler)
+                .setHandshakeHandler(new DefaultHandshakeHandler() {
+                    @Override
+                    protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler, Map<String, Object> attributes) {
+                        // 优先使用前端传入的 clientId 保持 WS 与 HTTP 的同一用户ID
+                        String query = request.getURI().getQuery();
+                        if (query != null) {
+                            for (String part : query.split("&")) {
+                                String[] kv = part.split("=", 2);
+                                if (kv.length == 2 && kv[0].equals("clientId") && !kv[1].isEmpty()) {
+                                    final String name = kv[1];
+                                    log.info("name:{}",name);
+                                    return new Principal() { @Override public String getName() {return name; } };
+                                }
+                            }
+                        }
+                        String cookies = request.getHeaders().getFirst("Cookie");
+                        String jsid = null;
+                        if (cookies != null) {
+                            for (String part : cookies.split(";")) {
+                                String p = part.trim();
+                                if (p.startsWith("JSESSIONID=")) {
+                                    jsid = p.substring("JSESSIONID=".length());
+                                    break;
+                                }
+                            }
+                        }
+                        final String name = jsid != null ? ("http-" + jsid) : ("u-" + UUID.randomUUID());
+                        return new Principal() { @Override public String getName() { return name; } };
+                    }
+                })
                 .withSockJS();
     }
 

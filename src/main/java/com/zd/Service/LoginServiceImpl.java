@@ -20,17 +20,14 @@ public class LoginServiceImpl implements LoginService{
     JWTUtil jwtUtil;
     //实现登录方法
     public LoginResponse login(LoginRequest loginRequest) {
-
         User user = loginMapper.selectByUsernameAndPassword(loginRequest.getUsername(),
                                                             loginRequest.getPassword());
-
         //查询用户名和密码是否匹配
         if(user != null){
 //            生成并打印JWT token
             String token = jwtUtil.generateToken(user.getUsername(),user.getId());
             log.info("登陆成功，登录用户id为：{}",user.getId());
             log.info("token为：{}",token);
-
             return new LoginResponse(
                     token,
                     user.getId(),

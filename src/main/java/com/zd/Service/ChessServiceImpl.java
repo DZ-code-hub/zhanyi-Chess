@@ -57,7 +57,6 @@ public class ChessServiceImpl implements ChessService{
         if (gameState != null && gameState.getBoardState() != null) {
             Board board = new Board();
             board.deserialize(gameState.getBoardState());
-            log.info("棋盘状态为：{}",gameState.getBoardState());
             gameState.setBoard(board);
         }
         return gameState;
@@ -66,7 +65,7 @@ public class ChessServiceImpl implements ChessService{
     @Override
     @Transactional
     //棋子移动
-    public Move makeMove(String sessionId, int fromX, int fromY, int toX, int toY) {
+    public Move makeMove(String sessionId, int fromX, int fromY, int toX, int toY,String mode,String modePiece) {
         //获取并判断游戏状态
         GameState gameState = getGameState(sessionId);
         System.out.println();
@@ -80,7 +79,7 @@ public class ChessServiceImpl implements ChessService{
             return null;
 
         //检查移动是否合法
-        if(!ruleEngine.isValidMove(board,fromX,fromY,toX,toY))
+        if(!ruleEngine.isValidMove(board,fromX,fromY,toX,toY,mode,modePiece))
             return null;
         //执行移动
         Piece capturedPiece = board.getPiece(toX,toY);
@@ -98,13 +97,13 @@ public class ChessServiceImpl implements ChessService{
 
         //拿到要移动的棋子
         Piece toPiece = gameState.getBoard().getPiece(toX,toY);
-        log.info("toPiece不为空：{}",toPiece);
+        /*log.info("toPiece不为空：{}",toPiece);*/
 
         //棋子将要移动到的地方的有效路径
-        List<int[]> toPath = ruleEngine.validPath(gameState.getBoard(), toPiece);
+        List<int[]> toPath = ruleEngine.validPath(gameState.getBoard(), toPiece, mode, modePiece);
 
         // 在交换回合之前检查是否将军
-        boolean isCheck = ruleEngine.isInCheck(gameState.getBoard(), gameState, toPath);
+        boolean isCheck = ruleEngine.isInCheck(gameState.getBoard(), gameState, toPath, mode, modePiece);
 
         // 将将军状态设置到Move对象中
         move.setCheck(isCheck);
@@ -116,7 +115,6 @@ public class ChessServiceImpl implements ChessService{
         gameMapper.updateGame(gameState);
         //保存到数据库
         move.setGameId(gameState.getId());
-        log.info("id:{}",move);
         moveMapper.insertMove(move);
 
         return move;
@@ -127,14 +125,12 @@ public class ChessServiceImpl implements ChessService{
     public boolean undoMove(String sessionId) {
         GameState gameState = getGameState(sessionId);
         if(gameState == null){
-            log.info("悔棋失败：没有找到游戏状态");
             return false;
         }
 
         //找到move_history中对应gameid的最后一个索引；
         Move lastmove = moveMapper.getLastMove(gameState.getId());
         if(lastmove == null){
-            log.info("当前为第一步，没有可悔之棋");
             return false;
         }
         Board board =  gameState.getBoard();

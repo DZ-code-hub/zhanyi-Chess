@@ -18,20 +18,20 @@ public class RuleEngine {
     @Autowired
     RuleOfBoss ruleOfBoss;
     @Autowired
-      RuleOfShi ruleOfShi;
+    RuleOfShi ruleOfShi;
     @Autowired
-      RuleOfXiang ruleOfXiang;
+    RuleOfXiang ruleOfXiang;
     @Autowired
-      RuleOfMa ruleOfMa;
+    RuleOfMa ruleOfMa;
     @Autowired
-      RuleOfChe ruleOfChe;
+    RuleOfChe ruleOfChe;
     @Autowired
-      RuleOfPao ruleOfPao;
+    RuleOfPao ruleOfPao;
     @Autowired
-      RuleOfBing ruleOfBing;
+    RuleOfBing ruleOfBing;
      Color color;
     //判断移动是否有效
-    public boolean isValidMove(Board board,int fromX, int fromY, int toX, int toY){
+    public boolean isValidMove(Board board,int fromX, int fromY, int toX, int toY,String mode,String modePiece){
         //棋子不能出界
         if(fromX > 8 || fromX < 0 || fromY < 0 || toY > 9)
             return false;
@@ -49,7 +49,10 @@ public class RuleEngine {
 
         switch (piece.getType()){
             case BOSS -> {
-                 return ruleOfBoss.isValidBossMove(board,fromX,fromY,toX,toY,color);
+                if("new".equals(mode) && "BOSS".equals(modePiece)){
+                    return ruleOfBoss.newValidBossMove(board,fromX,fromY,toX,toY,color);
+                }
+                return ruleOfBoss.isValidBossMove(board,fromX,fromY,toX,toY,color);
             }
             case SHI -> {
                 return ruleOfShi.isValidShiMove(board,fromX,fromY,toX,toY,color);
@@ -58,6 +61,9 @@ public class RuleEngine {
                 return ruleOfXiang.isValidXiangMove(board,fromX,fromY,toX,toY,color);
             }
             case MA -> {
+                if("new".equals(mode) && "MA".equals(modePiece)){
+                    return ruleOfMa.newVaildMaMove(board,fromX,fromY,toX,toY);
+                }
                 return ruleOfMa.isValidMaMove(board,fromX,fromY,toX,toY);
             }
             case CHE -> {
@@ -104,7 +110,7 @@ public class RuleEngine {
     //判断是否被将军，若被将则只能解将
     // 检查是否将军对方
     //判断是否将军只能放在走子后，交换回合之前做，否则会在被将一方走子后才提示将军
-    public boolean isInCheck(Board board, GameState gameState,List<int[]> toPath) {
+    public boolean isInCheck(Board board, GameState gameState,List<int[]> toPath,String mode,String modePiece) {
         Color currentPlayer = gameState.getCurrentPlayer();
         //拿到对方老将的颜色
         Color BossColor = currentPlayer == Color.RED ? Color.BLACK : Color.RED;
@@ -148,7 +154,7 @@ public class RuleEngine {
                 if (board.getPiece(x, y) != null && board.getPiece(x, y).getColor() == currentPlayer) {
                     piece = board.getPiece(x, y);
 
-                        List<int[]> path = validPath(board, piece);
+                        List<int[]> path = validPath(board, piece,mode,modePiece);
 
                         // 直接比较坐标而不是数组引用
                         for (int[] newPos : path) {
@@ -164,11 +170,11 @@ public class RuleEngine {
         }
 
     //判断每一个棋子可以走到的位置
-    public List<int[]> validPath(Board board,Piece piece){
+    public List<int[]> validPath(Board board,Piece piece,String mode,String modePiece){
         List<int[]> path = new ArrayList<>();
         for (int y = 0; y < 10; y++) {
             for ( int x = 0; x < 9; x++) {
-                if (isValidMove(board, piece.getX(), piece.getY(), x, y)) {
+                if (isValidMove(board, piece.getX(), piece.getY(), x, y,mode,modePiece)) {
                     //如果位置合法，就添加进集合
                     path.add(new int[]{x, y});
                 }

@@ -58,11 +58,10 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!--Redis依赖-jedis-->
+		<!--Redis依赖-->
 		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-			<version>3.7.0</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 
 		<dependency>
@@ -125,8 +124,6 @@
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-							<version>1.18.30</version>
-
 						</exclude>
 					</excludes>
 				</configuration>

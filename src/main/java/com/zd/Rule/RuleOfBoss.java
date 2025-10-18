@@ -25,4 +25,14 @@ public class RuleOfBoss extends Piece {
         int dy = Math.abs(toY - fromY);
         return (dx == 1 && dy == 0) || (dx == 0 && dy == 1);
     }
+
+    //将/帅的新规则：可以出九宫
+    public boolean newValidBossMove(Board board, int fromX, int fromY, int toX, int toY, Color color) {
+   
+
+        // 将/帅只能上下左右移动一格
+        int dx = Math.abs(toX - fromX);
+        int dy = Math.abs(toY - fromY);
+        return (dx == 1 && dy == 0) || (dx == 0 && dy == 1);
+    }
 }

@@ -75,9 +75,10 @@
     const roomId = qs.get('roomId');
     const cid = qs.get('cid') || ('c-' + Math.random().toString(36).slice(2));
     const yourColor = (qs.get('color') || '').toUpperCase();
+    const mode = qs.get('mode') || 'default';
     const token = localStorage.getItem('authToken');
     
-    document.getElementById('board').src = 'single-practice.html?roomId=' + encodeURIComponent(roomId) + '&color=' + encodeURIComponent(yourColor);
+    document.getElementById('board').src = 'single-practice.html?roomId=' + encodeURIComponent(roomId) + '&color=' + encodeURIComponent(yourColor) + '&mode=' + encodeURIComponent(mode);
 
     const sock = new SockJS('/ws?clientId=' + encodeURIComponent(cid));
     const client = Stomp.over(sock);
@@ -93,7 +94,9 @@
                     fromX: data.fromX,
                     fromY: data.fromY,
                     toX: data.toX,
-                    toY: data.toY
+                    toY: data.toY,
+                    mode: data.mode || mode,
+                    modePiece: data.modePiece || null
                 }));
             }
         } else if (data.type === 'wsUndo' && roomId) {
@@ -133,7 +136,7 @@
                 }
             } else if (evt.type === 'moveRejected') {
                 const ifr = document.getElementById('board');
-                // 取消“未到你的回合”的提示，其它原因仍提示
+                // 取消"未到你的回合"的提示，其它原因仍提示
                 if (ifr && ifr.contentWindow && evt.message !== '未到你的回合') {
                     ifr.contentWindow.postMessage({ type: 'toast', message: evt.message || '走子被拒绝' }, '*');
                 }
@@ -150,9 +153,26 @@
         }
     });
 
+    // 添加一个XMLHttpRequest拦截器，确保所有请求都携带认证头
+    (function() {
+        const originalXHR = window.XMLHttpRequest;
+        const originalOpen = originalXHR.prototype.open;
+        const originalSend = originalXHR.prototype.send;
+        
+        originalXHR.prototype.open = function(method, url, async, user, password) {
+            this._url = url;
+            return originalOpen.apply(this, arguments);
+        };
+        
+        originalXHR.prototype.send = function(body) {
+            if (this._url && !this._url.startsWith('http')) {
+                // 相对路径请求添加认证头
+                this.setRequestHeader('Authorization', 'Bearer ' + token);
+            }
+            return originalSend.apply(this, arguments);
+        };
+    })();
 
   </script>
 </body>
 </html>
-
-

@@ -1,18 +1,15 @@
 package com.zd.Controller;
 
-import com.zd.Entity.Board;
 import com.zd.Entity.GameState;
 import com.zd.Entity.Move;
 import com.zd.Entity.Piece;
 import com.zd.Enum.Color;
-import com.zd.Mapper.MoveMapper;
 import com.zd.Rule.RuleEngine;
 import com.zd.Service.ChessService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.FlashMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,8 +25,6 @@ public class ChessController {
     ChessService chessService;
     @Autowired
     RuleEngine ruleEngine;
-    @Autowired
-    MoveMapper moveMapper;
 
     //初始化游戏
     @PostMapping("/initialize")
@@ -67,7 +62,9 @@ public class ChessController {
     public ResponseEntity<Map<String, Object>> getValidMoves(
             @RequestParam String sessionId,
             @RequestParam int fromX,
-            @RequestParam int fromY) {
+            @RequestParam int fromY,
+            @RequestParam String mode,
+            @RequestParam(required = false)String modePiece) {
         GameState gameState = chessService.getGameState(sessionId);
         Map<String, Object> response = new HashMap<>();
         //判断棋盘状态和游戏状态
@@ -98,7 +95,7 @@ public class ChessController {
         List<int[]> moves = new ArrayList<>();
         for (int y = 0; y < 10; y++) {
             for (int x = 0; x < 9; x++) {
-                if (ruleEngine.isValidMove(gameState.getBoard(), fromX, fromY, x, y)) {
+                if (ruleEngine.isValidMove(gameState.getBoard(), fromX, fromY, x, y,mode,modePiece)) {
                     //如果位置合法，就添加进集合
                     moves.add(new int[]{x, y});
                 }
@@ -111,25 +108,26 @@ public class ChessController {
     }
 
     //移动棋子方法
+    //已经添加了玩法模式mode：经典/新玩法，经典的made值应为default
+    // 如果选择新玩法，made值为new，并且10回合后选择弈子强化，若选择将的强化，则modePiece的值为BOSS，默认为NULL
     @PostMapping("/move")
     public ResponseEntity<Map<String, Object>> makeMove(
             @RequestParam String sessionId,
             @RequestParam int fromX,
             @RequestParam int fromY,
             @RequestParam int toX,
-            @RequestParam int toY) {
+            @RequestParam int toY,
+            @RequestParam String mode,
+            @RequestParam(required = false) String modePiece) {
 
 
-        Move move = chessService.makeMove(sessionId, fromX, fromY, toX, toY);
+        Move move = chessService.makeMove(sessionId, fromX, fromY, toX, toY, mode, modePiece);
         GameState gameState = chessService.getGameState(sessionId);
-        log.info("move:{}", move);
-
         Map<String, Object> response = new HashMap<>();
         if (move != null) {
             response.put("success", true);
             response.put("move", move);
             response.put("gameState", gameState);
-            log.info("gameState为:{}", gameState);
 
             // 胜负判定：检查是否还有红帅或黑将
             String result = ruleEngine.checkWinner(gameState);

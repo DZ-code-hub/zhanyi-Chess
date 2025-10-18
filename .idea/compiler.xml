@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$PROJECT_DIR$/../../Maven/apache-maven-3.9.9-bin/apache-maven-3.9.9/mvn_repo/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+          <entry name="$PROJECT_DIR$/../../Maven/apache-maven-3.9.9-bin/apache-maven-3.9.9/mvn_repo/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
         <module name="zhanyi-Chess" />
       </profile>

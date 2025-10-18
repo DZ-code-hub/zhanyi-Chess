@@ -17,11 +17,11 @@ public class Piece {
     private Color color;
 
     //棋子x坐标
+
     private int x;
 
     //棋子y坐标
     private int y;
-
 
 
 }

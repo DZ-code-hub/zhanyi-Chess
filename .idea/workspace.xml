@@ -5,42 +5,106 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="904309fc-c0cc-49a0-806b-4675d7783840" name="更改" comment="增加在线匹配功能">
-      <change afterPath="$PROJECT_DIR$/.idea/httpClient.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zd/Controller/MatchController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zd/Controller/RoomWsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zd/HandshakeHander/HandshakeHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zd/Service/MatchService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zd/Service/MathServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Controller/MatchController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Controller/RoomWsController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/HandshakeHander/HandshakeHandler$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/HandshakeHander/HandshakeHandler$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/HandshakeHander/HandshakeHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleEngine$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleEngine.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfBing.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfBoss.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfChe.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfMa.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfPao.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfShi.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfXiang.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Service/MatchService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/zd/Service/MathServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/45c65f9a-81ff-49c8-b1c1-7bd690ea0070.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/45c65f9a-81ff-49c8-b1c1-7bd690ea0070.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ffa43c57-493b-4025-870f-18634131b0d5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ffa43c57-493b-4025-870f-18634131b0d5.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Controller/ChessController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Controller/ChessController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Controller/MatchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Controller/MatchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Controller/RoomWsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Controller/RoomWsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Entity/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/HandshakeHander/HandshakeHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Interceptor/JwtInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Interceptor/JwtInterceptor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfBoss.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfBoss.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfMa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Rule/RuleOfMa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Service/ChessService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Service/ChessService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Service/ChessServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Service/ChessServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Service/LoginServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Service/LoginServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Service/MatchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Service/MatchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Service/MathServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Service/MathServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/Service/RegisterServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/Service/RegisterServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zd/config/WebsocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zd/config/WebsocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/gamebody.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/gamebody.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/match.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/match.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/online.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/online.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/matching.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/matching.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/single-practice.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/single-practice.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Service/ChessServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/Service/ChessServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/config/WebsocketConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zd/config/WebsocketConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/match.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/match.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/online.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/online.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/single-practice.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/single-practice.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Controller/ChessController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Controller/LoginController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Controller/MatchController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Controller/RegisterController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Controller/RoomWsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Entity/Board.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Entity/GameState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Entity/Move.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Entity/Piece.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Entity/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Enum/Color.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Enum/PieceType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/HandshakeHander/HandshakeHandler$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/HandshakeHander/HandshakeHandler$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/HandshakeHander/HandshakeHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Interceptor/JwtInterceptor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Mapper/GameMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Mapper/LoginMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Mapper/MoveMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Mapper/RegisterMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleEngine$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleEngine.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfBing.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfBoss.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfChe.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfMa.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfPao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfShi.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Rule/RuleOfXiang.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Service/ChessService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Service/ChessServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Service/LoginService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Service/LoginServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Service/MatchService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Service/MathServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Service/RegisterService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/Service/RegisterServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/ZhanyiChessApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/config/WebsocketConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/dto/LoginRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/dto/LoginResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/dto/RegisterRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/dto/RegisterResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zd/util/JWTUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/ChessPic/bing0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/ChessPic/bing1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/ChessPic/boss0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/ChessPic/boss1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/ChessPic/che0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/ChessPic/che1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/ChessPic/ma0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/ChessPic/ma1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/ChessPic/pao0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/ChessPic/pao1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/ChessPic/qipan.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/ChessPic/shi0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/ChessPic/shi1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/ChessPic/xiang0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/ChessPic/xiang1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/gamebody.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/match.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/matching.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/online.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/single-practice.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-cli/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-cli/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/zd/ZhanyiChessApplicationTests.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +164,12 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Maven.zhanyi-Chess [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.zhanyi-Chess [compile].executor&quot;: &quot;Run&quot;,
     &quot;Maven.zhanyi-Chess [org.apache.maven.plugins:maven-compiler-plugin:3.14.0:compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.zhanyi-Chess [package].executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Database detector&quot;: &quot;数据库检测器&quot;,
+    &quot;Notification.DoNotAsk-Database detector&quot;: &quot;true&quot;,
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
     &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
     &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
@@ -115,10 +184,10 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;项目&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDK&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.12528735&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;database.data.csv.formats&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -193,7 +262,92 @@
       <workItem from="1757246113958" duration="1108000" />
       <workItem from="1757247357803" duration="8000" />
       <workItem from="1757247401886" duration="44000" />
-      <workItem from="1757247494055" duration="1977000" />
+      <workItem from="1757247494055" duration="5302000" />
+      <workItem from="1757327463752" duration="5844000" />
+      <workItem from="1757344158497" duration="992000" />
+      <workItem from="1757399836594" duration="4777000" />
+      <workItem from="1757414732450" duration="2637000" />
+      <workItem from="1757417390531" duration="1264000" />
+      <workItem from="1757426512929" duration="2637000" />
+      <workItem from="1757489250010" duration="42000" />
+      <workItem from="1757492754268" duration="2150000" />
+      <workItem from="1757748531705" duration="5118000" />
+      <workItem from="1757855673180" duration="32000" />
+      <workItem from="1757900476542" duration="23000" />
+      <workItem from="1757910550321" duration="1343000" />
+      <workItem from="1758381087439" duration="1325000" />
+      <workItem from="1758418641966" duration="5000" />
+      <workItem from="1758589614978" duration="1379000" />
+      <workItem from="1758591056228" duration="3230000" />
+      <workItem from="1758628339807" duration="4000" />
+      <workItem from="1758634946181" duration="1903000" />
+      <workItem from="1758680228939" duration="104000" />
+      <workItem from="1758680377685" duration="8000" />
+      <workItem from="1758680408922" duration="29000" />
+      <workItem from="1758680475261" duration="38000" />
+      <workItem from="1758680678366" duration="11000" />
+      <workItem from="1758681030431" duration="23000" />
+      <workItem from="1758681127684" duration="19000" />
+      <workItem from="1758681332695" duration="26000" />
+      <workItem from="1758681407042" duration="11000" />
+      <workItem from="1758681783904" duration="23000" />
+      <workItem from="1758681835793" duration="25000" />
+      <workItem from="1758682041228" duration="17000" />
+      <workItem from="1758697606733" duration="7000" />
+      <workItem from="1758697725576" duration="38000" />
+      <workItem from="1758697789692" duration="21000" />
+      <workItem from="1758697941637" duration="11000" />
+      <workItem from="1758698042415" duration="27000" />
+      <workItem from="1758698249271" duration="14000" />
+      <workItem from="1758698370199" duration="22000" />
+      <workItem from="1758698399727" duration="2000" />
+      <workItem from="1758698426172" duration="13000" />
+      <workItem from="1758698521412" duration="10000" />
+      <workItem from="1758698597044" duration="16000" />
+      <workItem from="1758698946171" duration="42000" />
+      <workItem from="1758699297721" duration="12000" />
+      <workItem from="1758700654032" duration="82000" />
+      <workItem from="1758700827818" duration="10000" />
+      <workItem from="1758700884520" duration="21000" />
+      <workItem from="1758700934542" duration="12000" />
+      <workItem from="1758701038195" duration="11000" />
+      <workItem from="1758701278447" duration="17000" />
+      <workItem from="1758701515295" duration="23000" />
+      <workItem from="1758701751414" duration="5000" />
+      <workItem from="1758703916205" duration="23000" />
+      <workItem from="1758703985288" duration="8000" />
+      <workItem from="1758704735228" duration="27000" />
+      <workItem from="1758704791461" duration="53000" />
+      <workItem from="1758704853560" duration="371000" />
+      <workItem from="1758705248279" duration="634000" />
+      <workItem from="1758705992392" duration="1046000" />
+      <workItem from="1758707437387" duration="1203000" />
+      <workItem from="1758708684855" duration="1514000" />
+      <workItem from="1758712100120" duration="510000" />
+      <workItem from="1758712621536" duration="1664000" />
+      <workItem from="1758763998677" duration="966000" />
+      <workItem from="1758781930546" duration="67000" />
+      <workItem from="1758795035062" duration="3000" />
+      <workItem from="1758863658840" duration="136000" />
+      <workItem from="1758868133246" duration="1235000" />
+      <workItem from="1758869387957" duration="4524000" />
+      <workItem from="1758880721456" duration="128000" />
+      <workItem from="1758889364235" duration="598000" />
+      <workItem from="1758964202878" duration="3000" />
+      <workItem from="1759134877342" duration="1109000" />
+      <workItem from="1759215665699" duration="488000" />
+      <workItem from="1759216895871" duration="737000" />
+      <workItem from="1759217673537" duration="180000" />
+      <workItem from="1759218895446" duration="177000" />
+      <workItem from="1759287764828" duration="3275000" />
+      <workItem from="1759315050433" duration="10000" />
+      <workItem from="1759388867650" duration="1923000" />
+      <workItem from="1759566195544" duration="5000" />
+      <workItem from="1760152757548" duration="668000" />
+      <workItem from="1760171098916" duration="4000" />
+      <workItem from="1760753676892" duration="197000" />
+      <workItem from="1760753884414" duration="6504000" />
+      <workItem from="1760767762590" duration="5263000" />
     </task>
     <task id="LOCAL-00001" summary="前端页面及后端的登录注册功能，包括jwt权限认证">
       <option name="closed" value="true" />
@@ -267,7 +421,15 @@
       <option name="project" value="LOCAL" />
       <updated>1757249452268</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="增加在线匹配功能">
+      <option name="closed" value="true" />
+      <created>1757249514644</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1757249514644</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
